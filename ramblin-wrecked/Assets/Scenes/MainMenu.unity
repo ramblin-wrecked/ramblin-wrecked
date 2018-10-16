@@ -556,7 +556,7 @@ GameObject:
   - component: {fileID: 1379345883}
   - component: {fileID: 1379345882}
   m_Layer: 5
-  m_Name: ManuCanvas
+  m_Name: MenuCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
