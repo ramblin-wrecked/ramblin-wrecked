@@ -5,16 +5,23 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
 public class PlayerMovement : MonoBehaviour {
 
-    //Verticle Movment Variables
-    public float jumpVel = 12f;
+    //jumping Variables
+    public float walkJumpVel = 9f;
+    public float runJumpVel = 12f;
     public float fallMultiplier = 2.5f;
-    public bool isGrounded;
+    public float lowJumpMultiplier = 2f;
+    public float distToGround = 1;
+    public Vector3 fallVelocity = Vector3.zero;
 
-    //Horizontal Movement Variables
-    public float walkSpeed = 15f;
-    public float maxSpeed = 30f;
-    public float friction = 0.90f;
-    public float velocity = 0f;
+    //moving Variables
+    public float walkSpeed = 2f;
+    public float runAccel = 4f;
+    public float friction = 0.75f;
+    public float xVel;
+    public float zVel;
+    public float airAccel = 2f;
+    public float maxAirVel;
+    public Vector3 moveVelocity;
 
 
     Quaternion dirQuaternion;
@@ -30,7 +37,7 @@ public class PlayerMovement : MonoBehaviour {
         rigidbody = GetComponent<Rigidbody>();
         charCtrl = GetComponent<CharacterController>();
         charCollider = GetComponent<CapsuleCollider>();
-        isGrounded = false;
+        //isGrounded = false;
     }
 
     void Update()
@@ -39,85 +46,77 @@ public class PlayerMovement : MonoBehaviour {
         Vector3.Normalize(dirVector);
         Point(dirVector);
         Move(dirVector, Input.GetButton("Fire3"));
-        jump("Jump");
-    }
-    void FixedUpdate()
-    {
-
+        jump("Jump", Input.GetButton("Fire3"));
     }
 
     //Moves the player
     void Move (Vector3 dirVector, bool running)
     {
-        bool shouldMove = dirVector.magnitude > 0f;
-        if (isGrounded){
-            rigidbody.position += transform.forward * Time.deltaTime * velocity;
+        rigidbody.position += moveVelocity;
+        if (IsGrounded())
+        {
+            if (running)
+            {
+                xVel += dirVector.x * runAccel * Time.deltaTime;
+                zVel += dirVector.z * runAccel * Time.deltaTime;
+                moveVelocity.Set(xVel, 0f, zVel);
+            }
+            else
+            {
+                moveVelocity = dirVector * walkSpeed * Time.deltaTime;
+            }
+            if (moveVelocity.magnitude < 0.20f) maxAirVel = 0.2f;
+            else if (moveVelocity.magnitude > 1f) maxAirVel = 0.8f;
+            else maxAirVel = moveVelocity.magnitude;
 
         } else {
-            rigidbody.position += dirVector * Time.deltaTime * velocity;
+            moveVelocity += dirVector * airAccel * Time.deltaTime;
+            moveVelocity = Vector3.ClampMagnitude(moveVelocity, maxAirVel);
         }
-
-        if (shouldMove) {
-            if (running) velocity = maxSpeed;
-            else velocity = walkSpeed;
+        // regulates friction
+        if (xVel != 0f)
+        {
+            if (xVel < 0.025f && xVel > -0.025f) xVel = 0f;
+            else xVel *= friction;
         }
-        if (velocity > 0.5f) {
-            velocity *= friction;
+        if (zVel != 0f)
+        {
+            if (zVel < 0.025f && zVel > -0.025f) zVel = 0f;
+            else zVel *= friction;
         }
-        else velocity = 0f;
     }
 
     //Points the player
     void Point(Vector3 dirVector)
     {
-        if(dirVector.magnitude > 0)
+        if(dirVector.sqrMagnitude > 0)
         {
-            dirQuaternion.SetLookRotation(dirVector);
-            rigidbody.MoveRotation(dirQuaternion);
+            if(IsGrounded()) {
+                dirQuaternion.SetLookRotation(dirVector);
+                rigidbody.MoveRotation(dirQuaternion);
+            }
         }
     }
 
     //Makes the player jump
-    void jump(string input)
+    void jump(string input, bool running)
     {
-        if(Input.GetButtonDown(input))
-        {
-            if (isGrounded)
-            {
-                rigidbody.AddForce(Vector3.up * jumpVel, ForceMode.Impulse);
-                isGrounded = false;
-            }
-        }
-        if(rigidbody.velocity.y < 0)
-        {
+        if(IsGrounded()) {
+            if(Input.GetButtonDown(input)) {
+                if(running) rigidbody.AddForce(Vector3.up * runJumpVel, ForceMode.Impulse);
+                else rigidbody.AddForce(Vector3.up * walkJumpVel, ForceMode.Impulse);
+            } else rigidbody.velocity.Set(rigidbody.velocity.x, 0f, rigidbody.velocity.y);
+        } else if (rigidbody.velocity.y < 0) {
             rigidbody.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        } else if (rigidbody.velocity.y > 0 && !Input.GetButton(input)) {
+            rigidbody.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
     }
 
-    //Physics Callback
-    void OnCollisionStay(Collision collision)
+
+    bool IsGrounded()
     {
-        if(collision.gameObject.tag =="Ground")
-        {
-            isGrounded = true;
-        }
+        return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
     }
 
-    //Physics Callback
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-        {
-            isGrounded = true;
-        }
-    }
-
-    void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-        {
-            isGrounded = false;
-        }
-    }
-
-}
+ }

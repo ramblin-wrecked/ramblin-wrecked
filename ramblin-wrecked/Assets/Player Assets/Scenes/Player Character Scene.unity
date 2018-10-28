@@ -666,8 +666,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce62401852828be4ab2ac705d3f00cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpVel: 0
-  fallMultiplier: 2.5
+  jumpVel: 9
+  fallMultiplier: 3
   isGrounded: 0
   walkSpeed: 5
   maxSpeed: 15
