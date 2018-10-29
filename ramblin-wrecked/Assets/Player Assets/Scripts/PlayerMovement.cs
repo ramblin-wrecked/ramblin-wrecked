@@ -6,31 +6,29 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     //jumping Variables
-    public float walkJumpVel = 14f;
-    public float runJumpVel = 18f;
-    public float fallMultiplier = 8f;
-    public float lowJumpMultiplier = 8f;
-    public float bonusGravityMult = 2.5f;
-    public Vector3 bonusGravity;
-    public float distToGround = 1;
+    float walkJumpVel = 14f;
+    float runJumpVel = 18f;
+    float fallMultiplier = 8f;
+    float lowJumpMultiplier = 8f;
+    float bonusGravityMult = 2.5f;
+    Vector3 bonusGravity;
+    float distToGround = 1;
 
 
     //moving Variables
-    public float walkSpeed = 2f;
-    public float runAccel = 4f;
-    public float friction = 0.75f;
-    public float xVel;
-    public float zVel;
-    public float airAccel = 2f;
-    public float maxAirVel;
+    float walkSpeed = 7f;
+    float runAccel = 4f;
+    float friction = 0.75f;
+    float xVel;
+    float zVel;
+    float airAccel = 1f;
+    float maxAirVel;
     public Vector3 moveVelocity;
 
-    //Dizzy Variables
-    public bool isDizzy;
-    public float defaultDizzyDuration = 210f;
-    public float dizzyDuration = 0f;
+    //Used to scale Movement dynamics to avatar's size
+    public float scaleBy = 1f;
 
-
+    //Used for turning and other such drab.
     Quaternion dirQuaternion;
     Vector3 dirVector;
     Rigidbody rigidbody;
@@ -38,13 +36,20 @@ public class PlayerMovement : MonoBehaviour {
     Collider charCollider;
     bool isRunning;
 
+    public bool isDizzy = false;
+    public int maxDizzyDuration = 210;
+    public int curDizzyDuration = 0;
+
+
 
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
         charCtrl = GetComponent<CharacterController>();
         charCollider = GetComponent<CapsuleCollider>();
-        //isGrounded = false;
+        transform.localScale = new Vector3(scaleBy, scaleBy, scaleBy);
+        //scalevec = transform.lossyscale;
+        //scalevecaverage = (scalevec.x + scalevec.y + scalevec.z) / 3f;
     }
 
     void Update()
@@ -60,11 +65,11 @@ public class PlayerMovement : MonoBehaviour {
     {
         if(isDizzy)
         {
-            dirVector.Set(-1f*Input.GetAxisRaw("Horizontal"), 0f, -1f*Input.GetAxisRaw("Vertical"));
-            dizzyDuration -= 1f;
-            if (dizzyDuration <= 0f) {
+            dirVector.Set(-1f * Input.GetAxisRaw("Horizontal"), 0f, -1f * Input.GetAxisRaw("Vertical"));
+            curDizzyDuration -= 1;
+            if (curDizzyDuration <= 0) {
+                curDizzyDuration = maxDizzyDuration;
                 isDizzy = false;
-                dizzyDuration = 210f;
             }
         } else {
             dirVector.Set(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
@@ -79,22 +84,22 @@ public class PlayerMovement : MonoBehaviour {
         {
             if (running)
             {
-                xVel += dirVector.x * runAccel * Time.deltaTime;
-                zVel += dirVector.z * runAccel * Time.deltaTime;
+                xVel += dirVector.x * scaleBy * runAccel * Time.deltaTime;
+                zVel += dirVector.z * scaleBy * runAccel * Time.deltaTime;
                 moveVelocity.Set(xVel, 0f, zVel);
             }
             else
             {
-                moveVelocity = dirVector * walkSpeed * Time.deltaTime;
+                moveVelocity = dirVector * scaleBy * walkSpeed * Time.deltaTime;
             }
             if (moveVelocity.magnitude < 2f) maxAirVel = 2f;
             else maxAirVel = moveVelocity.magnitude;
 
         } else {
-            moveVelocity += dirVector * airAccel * Time.deltaTime;
+            moveVelocity += dirVector * scaleBy * airAccel * Time.deltaTime;
             moveVelocity = Vector3.ClampMagnitude(moveVelocity, maxAirVel);
         }
-        // regulates friction
+        // regulates running friction
         if (xVel != 0f)
         {
             if (xVel < 0.025f && xVel > -0.025f) xVel = 0f;
@@ -113,7 +118,6 @@ public class PlayerMovement : MonoBehaviour {
         if(dirVector.sqrMagnitude > 0)
         {
             if(IsGrounded()) {
-                //dirQuaternion.SetLookRotation(dirVector);
                 transform.LookAt(transform.position + dirVector);
             }
         }
@@ -124,26 +128,26 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (IsGrounded()) {
             if (Input.GetButtonDown(input)) {
-                if (running) rigidbody.velocity += Vector3.up * runJumpVel;
-                else rigidbody.velocity += Vector3.up * walkJumpVel;
+                if (running) rigidbody.velocity += Vector3.up * scaleBy * runJumpVel;
+                else rigidbody.velocity += Vector3.up * scaleBy * walkJumpVel;
             }
             else rigidbody.velocity.Set(rigidbody.velocity.x, 0f, rigidbody.velocity.y);
         }
         else {
             if (rigidbody.velocity.y < 0) {
-                rigidbody.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+                rigidbody.velocity += Vector3.up * scaleBy * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
             }
             else if (rigidbody.velocity.y > 0 && !Input.GetButton(input)) {
-                rigidbody.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+                rigidbody.velocity += Vector3.up * scaleBy * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
             }
-            rigidbody.velocity += Vector3.up * Physics.gravity.y * bonusGravityMult * Time.deltaTime;
+            rigidbody.velocity += Vector3.up * scaleBy * Physics.gravity.y * bonusGravityMult * Time.deltaTime;
         }
     }
 
 
     bool IsGrounded()
     {
-        return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
+        return Physics.Raycast(transform.position, -Vector3.up, distToGround * scaleBy + 0.1f);
     }
 
 
