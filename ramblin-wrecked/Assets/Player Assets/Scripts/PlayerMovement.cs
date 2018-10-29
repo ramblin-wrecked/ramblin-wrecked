@@ -67,8 +67,7 @@ public class PlayerMovement : MonoBehaviour {
             {
                 moveVelocity = dirVector * walkSpeed * Time.deltaTime;
             }
-            if (moveVelocity.magnitude < 0.20f) maxAirVel = 0.2f;
-            else if (moveVelocity.magnitude > 1f) maxAirVel = 0.8f;
+            if (moveVelocity.magnitude < 2f) maxAirVel = 2f;
             else maxAirVel = moveVelocity.magnitude;
 
         } else {
