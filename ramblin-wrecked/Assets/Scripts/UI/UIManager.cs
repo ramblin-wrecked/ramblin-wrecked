@@ -7,6 +7,7 @@ using UnityEngine;
 public class UIManager : MonoBehaviour {
 
     Animator anim;
+    public WallCollision wallCollision;
 
 	// Use this for initialization
 	void Start () {
@@ -17,6 +18,13 @@ public class UIManager : MonoBehaviour {
 	void Update () {
         if (Input.GetButtonDown("ToggleMenu"))
             anim.SetTrigger("ToggleMenu");
+        if (wallCollision.GameOver)
+        {
+            print("GOT HERE");
+            anim.SetTrigger("GameOver");
+        }
 	}
+
+
 
 }
