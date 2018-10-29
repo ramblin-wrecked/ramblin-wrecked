@@ -25,6 +25,11 @@ public class PlayerMovement : MonoBehaviour {
     public float maxAirVel;
     public Vector3 moveVelocity;
 
+    //Dizzy Variables
+    public bool isDizzy;
+    public float defaultDizzyDuration = 210f;
+    public float dizzyDuration = 0f;
+
 
     Quaternion dirQuaternion;
     Vector3 dirVector;
@@ -44,11 +49,26 @@ public class PlayerMovement : MonoBehaviour {
 
     void Update()
     {
-        dirVector.Set(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
+        DizzyHandler();
         Vector3.Normalize(dirVector);
         Point(dirVector);
         Move(dirVector, Input.GetButton("Fire3"));
         jump("Jump", Input.GetButton("Fire3"));
+    }
+
+    void DizzyHandler()
+    {
+        if(isDizzy)
+        {
+            dirVector.Set(-1f*Input.GetAxisRaw("Horizontal"), 0f, -1f*Input.GetAxisRaw("Vertical"));
+            dizzyDuration -= 1f;
+            if (dizzyDuration <= 0f) {
+                isDizzy = false;
+                dizzyDuration = 210f;
+            }
+        } else {
+            dirVector.Set(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
+        }
     }
 
     //Moves the player
@@ -126,4 +146,11 @@ public class PlayerMovement : MonoBehaviour {
         return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
     }
 
+
+    void OnTriggerEnter(Collider c) {
+        if (c.tag == "Cup")
+        {
+            isDizzy = true;
+        }
+    }
  }
