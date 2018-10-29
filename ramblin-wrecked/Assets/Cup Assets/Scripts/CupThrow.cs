@@ -5,11 +5,12 @@ using UnityEngine;
 public class CupThrow : MonoBehaviour {
 
     private GameObject Cuppy;
+    //private GameObject targetPlayer;
     void Start()
     {
         Cuppy = this.transform.GetChild(0).gameObject; //Cup obj not default
         Cuppy.gameObject.SetActive(false);
-
+        //targetPlayer = GameObject.FindGameObjectWithTag("Player");
     }
 
 
@@ -19,8 +20,9 @@ public class CupThrow : MonoBehaviour {
         {
             Cuppy.gameObject.SetActive(true);
             Cuppy.GetComponent<Animator>().SetTrigger("Throw");
-            
+            //Cuppy.GetComponent<Animator>().MatchTarget(targetPlayer.transform.position, targetPlayer.transform.rotation, AvatarTarget.Body, new MatchTargetWeightMask(Vector3.one, 1f), 0.141f, 0.78f);
         }
+
 
     }
 
