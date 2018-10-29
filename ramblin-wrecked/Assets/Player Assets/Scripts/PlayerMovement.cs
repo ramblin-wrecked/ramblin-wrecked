@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour {
     float bonusGravityMult = 2.5f;
     Vector3 bonusGravity;
     float distToGround = 1;
+    bool canDoubleJump;
 
 
     //moving Variables
@@ -128,12 +129,18 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (IsGrounded()) {
             if (Input.GetButtonDown(input)) {
-                if (running) rigidbody.velocity += Vector3.up * scaleBy * runJumpVel;
-                else rigidbody.velocity += Vector3.up * scaleBy * walkJumpVel;
+                if (running) rigidbody.velocity = new Vector3(rigidbody.velocity.x, scaleBy * runJumpVel, rigidbody.velocity.z);
+                else rigidbody.velocity = new Vector3(rigidbody.velocity.x, scaleBy * walkJumpVel, rigidbody.velocity.z);
             }
             else rigidbody.velocity.Set(rigidbody.velocity.x, 0f, rigidbody.velocity.y);
+            canDoubleJump = true;
         }
         else {
+            if (canDoubleJump && Input.GetButtonDown(input)) {
+                if (running) rigidbody.velocity = new Vector3(rigidbody.velocity.x, scaleBy * runJumpVel, rigidbody.velocity.z);
+                else rigidbody.velocity = new Vector3(rigidbody.velocity.x, scaleBy * walkJumpVel, rigidbody.velocity.z);
+                canDoubleJump = false;
+            }
             if (rigidbody.velocity.y < 0) {
                 rigidbody.velocity += Vector3.up * scaleBy * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
             }
