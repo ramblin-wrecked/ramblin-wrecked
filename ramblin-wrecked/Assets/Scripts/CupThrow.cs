@@ -11,6 +11,8 @@ public class CupThrow : MonoBehaviour {
         Cuppy.gameObject.SetActive(false);
 
     }
+
+
     private void OnTriggerEnter(Collider c)
     {
         if (c.attachedRigidbody != null)
@@ -33,7 +35,7 @@ public class CupThrow : MonoBehaviour {
             if (bc != null)
             {
                 bc.outOfBox();
-                GameObject def = Cuppy.transform.GetChild(0).gameObject;
+                GameObject def = Cuppy.transform.GetChild(0).gameObject; //default shape
                 def.gameObject.SetActive(true);
             }
         }
