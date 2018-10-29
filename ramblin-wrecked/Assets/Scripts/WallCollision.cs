@@ -21,7 +21,6 @@ public class WallCollision : MonoBehaviour
     {
         if (c.tag == "Player")
         {
-            print("Got Here");
             GameOver = true;
         }
     }

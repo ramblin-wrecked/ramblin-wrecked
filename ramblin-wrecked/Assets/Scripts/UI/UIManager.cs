@@ -20,7 +20,6 @@ public class UIManager : MonoBehaviour {
             anim.SetTrigger("ToggleMenu");
         if (wallCollision.GameOver)
         {
-            print("GOT HERE");
             anim.SetTrigger("GameOver");
         }
 	}
