@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour {
 	void Start () {
         anim = GetComponent<Animator>();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
         if (Input.GetButtonDown("ToggleMenu"))
