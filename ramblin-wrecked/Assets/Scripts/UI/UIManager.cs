@@ -17,14 +17,10 @@ public class UIManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (Input.GetButtonDown("ToggleMenu"))
-        {
             anim.SetTrigger("ToggleMenu");
-            TimeKeeper.notPaused = !TimeKeeper.notPaused;
-        }
         if (wallCollision.GameOver)
         {
             anim.SetTrigger("GameOver");
-            TimeKeeper.notPaused = false;
         }
 	}
 
