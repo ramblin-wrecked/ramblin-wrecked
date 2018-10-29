@@ -19,7 +19,7 @@ public class WallCollision : MonoBehaviour
     }
     private void OnTriggerEnter(Collider c)
     {
-        if (c.tag == "Player")
+        if (!GameOver && c.tag == "Player")
         {
             GameOver = true;
         }
