@@ -7,9 +7,16 @@ public class TimeKeeper : MonoBehaviour {
     static float time;
     static float dt;
     public static bool notPaused = true;
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+    private void Start()
+    {
+        time = 0f;
+        dt = 0f;
+        notPaused = true;
+    }
+
+    // Update is called once per frame
+    void FixedUpdate () {
         if (notPaused)
             dt = Time.deltaTime;
         else

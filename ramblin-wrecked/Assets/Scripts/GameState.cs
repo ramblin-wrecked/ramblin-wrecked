@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class GameState : MonoBehaviour {
 
-    public static int credits = 2;
+    public static int credits = 0;
+
+    private void Start()
+    {
+        credits = 0;
+    }
 
     public static float CalculateGPA()
     {
