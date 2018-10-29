@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class GameState : MonoBehaviour {
 
-    public static int credits = 0;
-
-    private void Start()
-    {
-        credits = 0;
-    }
+    public static int credits = 2;
+    public static float time = 0f;
 
     public static float CalculateGPA()
     {
-        return Mathf.Min(4f, 5f * credits / TimeKeeper.GetTime());
+        return Mathf.Min(4f, 5f * credits / time);
+    }
+
+    private void FixedUpdate()
+    {
+        time += Time.deltaTime;
     }
 }
