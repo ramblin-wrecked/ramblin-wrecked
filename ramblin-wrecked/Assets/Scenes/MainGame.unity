@@ -2143,18 +2143,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 4273893174864798, guid: 8f10ccf9825963146b1935eea8f2ca22, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 114067229321312522, guid: 8f10ccf9825963146b1935eea8f2ca22,
-        type: 2}
-      propertyPath: speedX
-      value: 0.1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f10ccf9825963146b1935eea8f2ca22, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &1384631581 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114549763700494450, guid: 8f10ccf9825963146b1935eea8f2ca22,
+    type: 2}
+  m_PrefabInternal: {fileID: 1384631580}
+  m_Script: {fileID: 11500000, guid: 76248ff1025c0464194289c468f230ce, type: 3}
 --- !u!1 &1429745749
 GameObject:
   m_ObjectHideFlags: 0
@@ -3272,3 +3269,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89c08a20924b6a14db9c1eddf7704011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wallCollision: {fileID: 1384631581}

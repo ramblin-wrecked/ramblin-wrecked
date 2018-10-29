@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 23973954020357626}
   - component: {fileID: 65532976774451284}
   - component: {fileID: 114067229321312522}
-  - component: {fileID: 95399950129135364}
   - component: {fileID: 114549763700494450}
   m_Layer: 0
   m_Name: Wall
@@ -99,24 +98,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!95 &95399950129135364
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1215503001560774}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6b65f135cefecbd4786f23dcd1a26144, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114067229321312522
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -128,7 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a759b53ee82a5c14caefd03aad9d07bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.1
+  speedX: 0
+  speedY: 0
+  speedZ: 0
 --- !u!114 &114549763700494450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -140,3 +123,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76248ff1025c0464194289c468f230ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameOver: 0

@@ -6,12 +6,14 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     //jumping Variables
-    public float walkJumpVel = 9f;
-    public float runJumpVel = 12f;
-    public float fallMultiplier = 2.5f;
-    public float lowJumpMultiplier = 2f;
+    public float walkJumpVel = 14f;
+    public float runJumpVel = 18f;
+    public float fallMultiplier = 8f;
+    public float lowJumpMultiplier = 8f;
+    public float bonusGravityMult = 2.5f;
+    public Vector3 bonusGravity;
     public float distToGround = 1;
-    public Vector3 fallVelocity = Vector3.zero;
+
 
     //moving Variables
     public float walkSpeed = 2f;
@@ -101,15 +103,21 @@ public class PlayerMovement : MonoBehaviour {
     //Makes the player jump
     void jump(string input, bool running)
     {
-        if(IsGrounded()) {
-            if(Input.GetButtonDown(input)) {
-                if(running) rigidbody.AddForce(Vector3.up * runJumpVel, ForceMode.Impulse);
-                else rigidbody.AddForce(Vector3.up * walkJumpVel, ForceMode.Impulse);
-            } else rigidbody.velocity.Set(rigidbody.velocity.x, 0f, rigidbody.velocity.y);
-        } else if (rigidbody.velocity.y < 0) {
-            rigidbody.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-        } else if (rigidbody.velocity.y > 0 && !Input.GetButton(input)) {
-            rigidbody.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+        if (IsGrounded()) {
+            if (Input.GetButtonDown(input)) {
+                if (running) rigidbody.velocity += Vector3.up * runJumpVel;
+                else rigidbody.velocity += Vector3.up * walkJumpVel;
+            }
+            else rigidbody.velocity.Set(rigidbody.velocity.x, 0f, rigidbody.velocity.y);
+        }
+        else {
+            if (rigidbody.velocity.y < 0) {
+                rigidbody.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+            }
+            else if (rigidbody.velocity.y > 0 && !Input.GetButton(input)) {
+                rigidbody.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+            }
+            rigidbody.velocity += Vector3.up * Physics.gravity.y * bonusGravityMult * Time.deltaTime;
         }
     }
 
