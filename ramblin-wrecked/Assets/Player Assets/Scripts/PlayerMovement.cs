@@ -92,8 +92,8 @@ public class PlayerMovement : MonoBehaviour {
         if(dirVector.sqrMagnitude > 0)
         {
             if(IsGrounded()) {
-                dirQuaternion.SetLookRotation(dirVector);
-                rigidbody.MoveRotation(dirQuaternion);
+                //dirQuaternion.SetLookRotation(dirVector);
+                transform.LookAt(transform.position + dirVector);
             }
         }
     }
