@@ -13,6 +13,7 @@ public class SceneSwitchScript : MonoBehaviour {
     public void SwitchToGame()
     {
         SceneManager.LoadScene("Scenes/MainGame");
+        TimeKeeper.notPaused = true;
     }
 
 }
