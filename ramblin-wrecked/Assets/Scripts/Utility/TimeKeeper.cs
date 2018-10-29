@@ -4,12 +4,27 @@ using UnityEngine;
 
 public class TimeKeeper : MonoBehaviour {
 
-    public static float time;
-    public static bool notPaused;
+    static float time;
+    static float dt;
+    public static bool notPaused = true;
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        if (TimeKeeper.notPaused)
-            TimeKeeper.time += Time.deltaTime;
+        if (notPaused)
+            dt = Time.deltaTime;
+        else
+            dt = 0f;
+
+        time += dt;
 	}
+
+    public static float GetDeltaTime()
+    {
+        return dt;
+    }
+
+    public static float GetTime()
+    {
+        return time;
+    }
 }
