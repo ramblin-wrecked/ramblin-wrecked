@@ -15,6 +15,6 @@ public class GPACounterScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        text.text = "GPA: " + GameState.CalculateGPA();
+        text.text = "GPA: " + GameState.CalculateGPA().ToString("0.00");
 	}
 }

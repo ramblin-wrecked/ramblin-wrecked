@@ -47,11 +47,12 @@ public class PlayerMovement : MonoBehaviour {
         //isGrounded = false;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         DizzyHandler();
         Vector3.Normalize(dirVector);
-        Point(dirVector);
+        if (TimeKeeper.notPaused)
+            Point(dirVector);
         Move(dirVector, Input.GetButton("Fire3"));
         jump("Jump", Input.GetButton("Fire3"));
     }
@@ -74,7 +75,7 @@ public class PlayerMovement : MonoBehaviour {
     //Moves the player
     void Move (Vector3 dirVector, bool running)
     {
-        rigidbody.position += moveVelocity;
+        rigidbody.position += moveVelocity * TimeKeeper.GetDeltaTime();
         if (IsGrounded())
         {
             if (running)
