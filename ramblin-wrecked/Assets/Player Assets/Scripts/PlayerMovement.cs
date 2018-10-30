@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour {
     float fallMultiplier = 8f;
     float lowJumpMultiplier = 8f;
     float bonusGravityMult = 2.5f;
+    float airDrag = 0.95f;
     Vector3 bonusGravity;
     float distToGround = 1;
     bool canDoubleJump;
@@ -35,6 +36,7 @@ public class PlayerMovement : MonoBehaviour {
     Rigidbody rigidbody;
     CharacterController charCtrl;
     Collider charCollider;
+    Animator anim;
     bool isRunning;
 
     public bool isDizzy = false;
@@ -48,6 +50,7 @@ public class PlayerMovement : MonoBehaviour {
         rigidbody = GetComponent<Rigidbody>();
         charCtrl = GetComponent<CharacterController>();
         charCollider = GetComponent<CapsuleCollider>();
+        anim = GetComponent<Animator>();
         transform.localScale = new Vector3(scaleBy, scaleBy, scaleBy);
         //scalevec = transform.lossyscale;
         //scalevecaverage = (scalevec.x + scalevec.y + scalevec.z) / 3f;
@@ -85,6 +88,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             if (running)
             {
+
                 xVel += dirVector.x * scaleBy * runAccel * Time.deltaTime;
                 zVel += dirVector.z * scaleBy * runAccel * Time.deltaTime;
                 moveVelocity.Set(xVel, 0f, zVel);
@@ -93,23 +97,33 @@ public class PlayerMovement : MonoBehaviour {
             {
                 moveVelocity = dirVector * scaleBy * walkSpeed * Time.deltaTime;
             }
-            if (moveVelocity.magnitude < 2f) maxAirVel = 2f;
-            else maxAirVel = moveVelocity.magnitude;
+            if (moveVelocity.magnitude < scaleBy * 2f) maxAirVel = scaleBy * 2f;
+            else {
+                anim.SetTrigger("IsWalking");
+                maxAirVel = moveVelocity.magnitude;
+            }
 
         } else {
             moveVelocity += dirVector * scaleBy * airAccel * Time.deltaTime;
+            moveVelocity *= airDrag;
             moveVelocity = Vector3.ClampMagnitude(moveVelocity, maxAirVel);
         }
         // regulates running friction
         if (xVel != 0f)
         {
             if (xVel < 0.025f && xVel > -0.025f) xVel = 0f;
-            else xVel *= friction;
+            else {
+                anim.SetTrigger("IsRunning");
+                xVel *= friction;
+            }
         }
         if (zVel != 0f)
         {
             if (zVel < 0.025f && zVel > -0.025f) zVel = 0f;
-            else zVel *= friction;
+            else {
+                anim.SetTrigger("IsRunning");
+                zVel *= friction;
+            }
         }
     }
 
@@ -131,14 +145,19 @@ public class PlayerMovement : MonoBehaviour {
             if (Input.GetButtonDown(input)) {
                 if (running) rigidbody.velocity = new Vector3(rigidbody.velocity.x, scaleBy * runJumpVel, rigidbody.velocity.z);
                 else rigidbody.velocity = new Vector3(rigidbody.velocity.x, scaleBy * walkJumpVel, rigidbody.velocity.z);
+                anim.SetTrigger("IsJumping");
             }
             else rigidbody.velocity.Set(rigidbody.velocity.x, 0f, rigidbody.velocity.y);
             canDoubleJump = true;
         }
         else {
             if (canDoubleJump && Input.GetButtonDown(input)) {
-                if (running) rigidbody.velocity = new Vector3(rigidbody.velocity.x, scaleBy * runJumpVel, rigidbody.velocity.z);
-                else rigidbody.velocity = new Vector3(rigidbody.velocity.x, scaleBy * walkJumpVel, rigidbody.velocity.z);
+                //moveVelocity = Vector3.zero;
+                //maxAirVel = 1000f;
+                anim.SetTrigger("IsDoubleJumping");
+                if (running) rigidbody.velocity = new Vector3(rigidbody.velocity.x, 1.25f * scaleBy * runJumpVel, rigidbody.velocity.z);
+                else rigidbody.velocity = new Vector3(rigidbody.velocity.x, 1.25f * scaleBy * walkJumpVel, rigidbody.velocity.z);
+
                 canDoubleJump = false;
             }
             if (rigidbody.velocity.y < 0) {
@@ -155,6 +174,7 @@ public class PlayerMovement : MonoBehaviour {
     bool IsGrounded()
     {
         return Physics.Raycast(transform.position, -Vector3.up, distToGround * scaleBy + 0.1f);
+        anim.SetTrigger("IsGrounded");
     }
 
 

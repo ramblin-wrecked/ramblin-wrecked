@@ -23,7 +23,4 @@ public class UIManager : MonoBehaviour {
             anim.SetTrigger("GameOver");
         }
 	}
-
-
-
 }
