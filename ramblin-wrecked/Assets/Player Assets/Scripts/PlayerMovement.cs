@@ -53,13 +53,16 @@ public class PlayerMovement : MonoBehaviour {
         //scalevecaverage = (scalevec.x + scalevec.y + scalevec.z) / 3f;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        DizzyHandler();
-        Vector3.Normalize(dirVector);
-        Point(dirVector);
-        Move(dirVector, Input.GetButton("Fire3"));
-        jump("Jump", Input.GetButton("Fire3"));
+        if (!TimeKeeper.isPaused)
+        {
+            DizzyHandler();
+            Vector3.Normalize(dirVector);
+            Point(dirVector);
+            Move(dirVector, Input.GetButton("Fire3"));
+            jump("Jump", Input.GetButton("Fire3"));
+        }
     }
 
     void DizzyHandler()
@@ -85,19 +88,19 @@ public class PlayerMovement : MonoBehaviour {
         {
             if (running)
             {
-                xVel += dirVector.x * scaleBy * runAccel * Time.deltaTime;
-                zVel += dirVector.z * scaleBy * runAccel * Time.deltaTime;
+                xVel += dirVector.x * scaleBy * runAccel * TimeKeeper.GetDeltaTime();
+                zVel += dirVector.z * scaleBy * runAccel * TimeKeeper.GetDeltaTime();
                 moveVelocity.Set(xVel, 0f, zVel);
             }
             else
             {
-                moveVelocity = dirVector * scaleBy * walkSpeed * Time.deltaTime;
+                moveVelocity = dirVector * scaleBy * walkSpeed * TimeKeeper.GetDeltaTime();
             }
             if (moveVelocity.magnitude < 2f) maxAirVel = 2f;
             else maxAirVel = moveVelocity.magnitude;
 
         } else {
-            moveVelocity += dirVector * scaleBy * airAccel * Time.deltaTime;
+            moveVelocity += dirVector * scaleBy * airAccel * TimeKeeper.GetDeltaTime();
             moveVelocity = Vector3.ClampMagnitude(moveVelocity, maxAirVel);
         }
         // regulates running friction

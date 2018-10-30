@@ -19,7 +19,7 @@ public class MoveForward : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        transform.position = transform.position + movementZ * speedZ + movementX * speedX + movementY * speedY;
+	void FixedUpdate () {
+        transform.position = transform.position + (movementZ * speedZ + movementX * speedX + movementY * speedY) * TimeKeeper.GetDeltaTime();
 	}
 }
