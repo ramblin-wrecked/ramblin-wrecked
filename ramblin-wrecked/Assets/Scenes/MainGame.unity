@@ -2817,7 +2817,7 @@ Prefab:
     - target: {fileID: 23973954020357626, guid: 8f10ccf9825963146b1935eea8f2ca22,
         type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4273893174864798, guid: 8f10ccf9825963146b1935eea8f2ca22, type: 2}
       propertyPath: m_LocalScale.z
@@ -2832,6 +2832,41 @@ Prefab:
       propertyPath: speedX
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 199738660643290264, guid: 8f10ccf9825963146b1935eea8f2ca22,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 64e579b97087ab64eb0b699e07e7d086, type: 2}
+    - target: {fileID: 199738660643290264, guid: 8f10ccf9825963146b1935eea8f2ca22,
+        type: 2}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 64e579b97087ab64eb0b699e07e7d086, type: 2}
+    - target: {fileID: 4610069924011682, guid: 8f10ccf9825963146b1935eea8f2ca22, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.199
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610069924011682, guid: 8f10ccf9825963146b1935eea8f2ca22, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610069924011682, guid: 8f10ccf9825963146b1935eea8f2ca22, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610069924011682, guid: 8f10ccf9825963146b1935eea8f2ca22, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 198643225752457902, guid: 8f10ccf9825963146b1935eea8f2ca22,
+        type: 2}
+      propertyPath: InitialModule.startRotation.scalar
+      value: 1.7453293
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610069924011682, guid: 8f10ccf9825963146b1935eea8f2ca22, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.402
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f10ccf9825963146b1935eea8f2ca22, type: 2}
   m_IsPrefabAsset: 0
@@ -2841,6 +2876,11 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1384631580}
   m_Script: {fileID: 11500000, guid: 76248ff1025c0464194289c468f230ce, type: 3}
+--- !u!4 &1384631582 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4610069924011682, guid: 8f10ccf9825963146b1935eea8f2ca22,
+    type: 2}
+  m_PrefabInternal: {fileID: 1384631580}
 --- !u!1 &1399965926 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1095781193608598, guid: d380bb87210bc894fa27afd25efc0b1a,
@@ -3218,6 +3258,72 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1522925518}
   m_CullTransparentMesh: 0
+--- !u!1 &1548376725
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1548376726}
+  - component: {fileID: 1548376727}
+  m_Layer: 0
+  m_Name: Point Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1548376726
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1548376725}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1384631582}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!108 &1548376727
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1548376725}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 2
+  m_Color: {r: 1, g: 0.8735975, b: 0, a: 1}
+  m_Intensity: 3
+  m_Range: 10
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!1001 &1559757746
 Prefab:
   m_ObjectHideFlags: 0
