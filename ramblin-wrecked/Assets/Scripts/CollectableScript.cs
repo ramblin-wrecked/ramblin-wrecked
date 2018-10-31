@@ -32,6 +32,6 @@ public class CollectableScript : MonoBehaviour {
 
     void AfterAnimation()
     {
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 }
