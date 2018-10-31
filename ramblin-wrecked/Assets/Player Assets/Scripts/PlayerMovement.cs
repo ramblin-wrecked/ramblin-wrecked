@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour
+{
 
     //jumping Variables
     float walkJumpVel = 14f;
@@ -52,36 +53,40 @@ public class PlayerMovement : MonoBehaviour {
         charCollider = GetComponent<CapsuleCollider>();
         anim = GetComponent<Animator>();
         transform.localScale = new Vector3(scaleBy, scaleBy, scaleBy);
-        //scalevec = transform.lossyscale;
-        //scalevecaverage = (scalevec.x + scalevec.y + scalevec.z) / 3f;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        DizzyHandler();
-        Vector3.Normalize(dirVector);
-        Point(dirVector);
-        Move(dirVector, Input.GetButton("Fire3"));
-        jump("Jump", Input.GetButton("Fire3"));
+        if (!TimeKeeper.isPaused)
+        {
+            DizzyHandler();
+            Vector3.Normalize(dirVector);
+            Point(dirVector);
+            Move(dirVector, Input.GetButton("Fire3"));
+            Jump("Jump", Input.GetButton("Fire3"));
+        }
     }
 
     void DizzyHandler()
     {
-        if(isDizzy)
+        if (isDizzy)
         {
             dirVector.Set(-1f * Input.GetAxisRaw("Horizontal"), 0f, -1f * Input.GetAxisRaw("Vertical"));
             curDizzyDuration -= 1;
-            if (curDizzyDuration <= 0) {
+            if (curDizzyDuration <= 0)
+            {
                 curDizzyDuration = maxDizzyDuration;
                 isDizzy = false;
             }
-        } else {
+        }
+        else
+        {
             dirVector.Set(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
         }
     }
 
     //Moves the player
-    void Move (Vector3 dirVector, bool running)
+    void Move(Vector3 dirVector, bool running)
     {
         rigidbody.position += moveVelocity;
         if (IsGrounded())
@@ -89,22 +94,25 @@ public class PlayerMovement : MonoBehaviour {
             if (running)
             {
 
-                xVel += dirVector.x * scaleBy * runAccel * Time.deltaTime;
-                zVel += dirVector.z * scaleBy * runAccel * Time.deltaTime;
+                xVel += dirVector.x * scaleBy * runAccel * TimeKeeper.GetDeltaTime();
+                zVel += dirVector.z * scaleBy * runAccel * TimeKeeper.GetDeltaTime();
                 moveVelocity.Set(xVel, 0f, zVel);
             }
             else
             {
-                moveVelocity = dirVector * scaleBy * walkSpeed * Time.deltaTime;
+                moveVelocity = dirVector * scaleBy * walkSpeed * TimeKeeper.GetDeltaTime();
             }
             if (moveVelocity.magnitude < scaleBy * 2f) maxAirVel = scaleBy * 2f;
-            else {
+            else
+            {
                 anim.SetTrigger("IsWalking");
                 maxAirVel = moveVelocity.magnitude;
             }
 
-        } else {
-            moveVelocity += dirVector * scaleBy * airAccel * Time.deltaTime;
+        }
+        else
+        {
+            moveVelocity += dirVector * scaleBy * airAccel * TimeKeeper.GetDeltaTime();
             moveVelocity *= airDrag;
             moveVelocity = Vector3.ClampMagnitude(moveVelocity, maxAirVel);
         }
@@ -112,7 +120,8 @@ public class PlayerMovement : MonoBehaviour {
         if (xVel != 0f)
         {
             if (xVel < 0.025f && xVel > -0.025f) xVel = 0f;
-            else {
+            else
+            {
                 anim.SetTrigger("IsRunning");
                 xVel *= friction;
             }
@@ -120,7 +129,8 @@ public class PlayerMovement : MonoBehaviour {
         if (zVel != 0f)
         {
             if (zVel < 0.025f && zVel > -0.025f) zVel = 0f;
-            else {
+            else
+            {
                 anim.SetTrigger("IsRunning");
                 zVel *= friction;
             }
@@ -130,19 +140,22 @@ public class PlayerMovement : MonoBehaviour {
     //Points the player
     void Point(Vector3 dirVector)
     {
-        if(dirVector.sqrMagnitude > 0)
+        if (dirVector.sqrMagnitude > 0)
         {
-            if(IsGrounded()) {
+            if (IsGrounded())
+            {
                 transform.LookAt(transform.position + dirVector);
             }
         }
     }
 
     //Makes the player jump
-    void jump(string input, bool running)
+    void Jump(string input, bool running)
     {
-        if (IsGrounded()) {
-            if (Input.GetButtonDown(input)) {
+        if (IsGrounded())
+        {
+            if (Input.GetButtonDown(input))
+            {
                 if (running) rigidbody.velocity = new Vector3(rigidbody.velocity.x, scaleBy * runJumpVel, rigidbody.velocity.z);
                 else rigidbody.velocity = new Vector3(rigidbody.velocity.x, scaleBy * walkJumpVel, rigidbody.velocity.z);
                 anim.SetTrigger("IsJumping");
@@ -150,8 +163,10 @@ public class PlayerMovement : MonoBehaviour {
             else rigidbody.velocity.Set(rigidbody.velocity.x, 0f, rigidbody.velocity.y);
             canDoubleJump = true;
         }
-        else {
-            if (canDoubleJump && Input.GetButtonDown(input)) {
+        else
+        {
+            if (canDoubleJump && Input.GetButtonDown(input))
+            {
                 //moveVelocity = Vector3.zero;
                 //maxAirVel = 1000f;
                 anim.SetTrigger("IsDoubleJumping");
@@ -160,13 +175,15 @@ public class PlayerMovement : MonoBehaviour {
 
                 canDoubleJump = false;
             }
-            if (rigidbody.velocity.y < 0) {
-                rigidbody.velocity += Vector3.up * scaleBy * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+            if (rigidbody.velocity.y < 0)
+            {
+                rigidbody.velocity += Vector3.up * scaleBy * Physics.gravity.y * (fallMultiplier - 1) * TimeKeeper.GetDeltaTime;
             }
-            else if (rigidbody.velocity.y > 0 && !Input.GetButton(input)) {
-                rigidbody.velocity += Vector3.up * scaleBy * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+            else if (rigidbody.velocity.y > 0 && !Input.GetButton(input))
+            {
+                rigidbody.velocity += Vector3.up * scaleBy * Physics.gravity.y * (lowJumpMultiplier - 1) * TimeKeeper.GetDeltaTime;
             }
-            rigidbody.velocity += Vector3.up * scaleBy * Physics.gravity.y * bonusGravityMult * Time.deltaTime;
+            rigidbody.velocity += Vector3.up * scaleBy * Physics.gravity.y * bonusGravityMult * TimeKeeper.GetDeltaTime;
         }
     }
 
@@ -178,10 +195,11 @@ public class PlayerMovement : MonoBehaviour {
     }
 
 
-    void OnTriggerEnter(Collider c) {
+    void OnTriggerEnter(Collider c)
+    {
         if (c.tag == "Cup")
         {
             isDizzy = true;
         }
     }
- }
+}
