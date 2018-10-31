@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
-public class PlayerMovement : MonoBehaviour
+public class FixedPlayerMovement : MonoBehaviour
 {
 
     //jumping Variables
@@ -53,17 +53,18 @@ public class PlayerMovement : MonoBehaviour
         charCollider = GetComponent<CapsuleCollider>();
         anim = GetComponent<Animator>();
         transform.localScale = new Vector3(scaleBy, scaleBy, scaleBy);
-        //scalevec = transform.lossyscale;
-        //scalevecaverage = (scalevec.x + scalevec.y + scalevec.z) / 3f;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        DizzyHandler();
-        Vector3.Normalize(dirVector);
-        Point(dirVector);
-        Move(dirVector, Input.GetButton("Fire3"));
-        jump("Jump", Input.GetButton("Fire3"));
+        if (!TimeKeeper.isPaused)
+        {
+            DizzyHandler();
+            Vector3.Normalize(dirVector);
+            Point(dirVector);
+            Move(dirVector, Input.GetButton("Fire3"));
+            Jump("Jump", Input.GetButton("Fire3"));
+        }
     }
 
     void DizzyHandler()
@@ -93,13 +94,13 @@ public class PlayerMovement : MonoBehaviour
             if (running)
             {
 
-                xVel += dirVector.x * scaleBy * runAccel * Time.deltaTime;
-                zVel += dirVector.z * scaleBy * runAccel * Time.deltaTime;
+                xVel += dirVector.x * scaleBy * runAccel * TimeKeeper.GetDeltaTime();
+                zVel += dirVector.z * scaleBy * runAccel * TimeKeeper.GetDeltaTime();
                 moveVelocity.Set(xVel, 0f, zVel);
             }
             else
             {
-                moveVelocity = dirVector * scaleBy * walkSpeed * Time.deltaTime;
+                moveVelocity = dirVector * scaleBy * walkSpeed * TimeKeeper.GetDeltaTime();
             }
             if (moveVelocity.magnitude < scaleBy * 2f) maxAirVel = scaleBy * 2f;
             else
@@ -111,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            moveVelocity += dirVector * scaleBy * airAccel * Time.deltaTime;
+            moveVelocity += dirVector * scaleBy * airAccel * TimeKeeper.GetDeltaTime();
             moveVelocity *= airDrag;
             moveVelocity = Vector3.ClampMagnitude(moveVelocity, maxAirVel);
         }
@@ -149,7 +150,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //Makes the player jump
-    void jump(string input, bool running)
+    void Jump(string input, bool running)
     {
         if (IsGrounded())
         {
@@ -176,13 +177,13 @@ public class PlayerMovement : MonoBehaviour
             }
             if (rigidbody.velocity.y < 0)
             {
-                rigidbody.velocity += Vector3.up * scaleBy * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+                rigidbody.velocity += Vector3.up * scaleBy * Physics.gravity.y * (fallMultiplier - 1) * TimeKeeper.GetDeltaTime();
             }
             else if (rigidbody.velocity.y > 0 && !Input.GetButton(input))
             {
-                rigidbody.velocity += Vector3.up * scaleBy * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+                rigidbody.velocity += Vector3.up * scaleBy * Physics.gravity.y * (lowJumpMultiplier - 1) * TimeKeeper.GetDeltaTime();
             }
-            rigidbody.velocity += Vector3.up * scaleBy * Physics.gravity.y * bonusGravityMult * Time.deltaTime;
+            rigidbody.velocity += Vector3.up * scaleBy * Physics.gravity.y * bonusGravityMult * TimeKeeper.GetDeltaTime();
         }
     }
 
