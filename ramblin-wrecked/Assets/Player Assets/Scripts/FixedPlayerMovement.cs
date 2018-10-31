@@ -15,7 +15,7 @@ public class FixedPlayerMovement : MonoBehaviour
     float airDrag = 0.95f;
     Vector3 bonusGravity;
     float distToGround = 1;
-    bool canDoubleJump;
+    public bool canDoubleJump;
 
 
     //moving Variables
@@ -63,7 +63,7 @@ public class FixedPlayerMovement : MonoBehaviour
             Vector3.Normalize(dirVector);
             Point(dirVector);
             Move(dirVector, Input.GetButton("Fire3"));
-            Jump("Jump", Input.GetButton("Fire3"));
+            jump("Jump", Input.GetButton("Fire3"));
         }
     }
 
@@ -150,7 +150,7 @@ public class FixedPlayerMovement : MonoBehaviour
     }
 
     //Makes the player jump
-    void Jump(string input, bool running)
+    void jump(string input, bool running)
     {
         if (IsGrounded())
         {

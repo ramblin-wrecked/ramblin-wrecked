@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114010396364398682}
   - component: {fileID: 95661097348525978}
   - component: {fileID: 114170574540677312}
+  - component: {fileID: 114785592471053186}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -393,6 +394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce62401852828be4ab2ac705d3f00cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canDoubleJump: 0
   moveVelocity: {x: 0, y: 0, z: 0}
   scaleBy: 1
   isDizzy: 0
@@ -409,11 +411,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24cacd83a825afd4f937ff5d8921c0f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canDoubleJump: 0
   moveVelocity: {x: 0, y: 0, z: 0}
   scaleBy: 1
   isDizzy: 0
   maxDizzyDuration: 210
   curDizzyDuration: 0
+--- !u!114 &114785592471053186
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1095781193608598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: accd01605f607de49ba04ff589628848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitCup: 0
 --- !u!136 &136878734405903836
 CapsuleCollider:
   m_ObjectHideFlags: 1

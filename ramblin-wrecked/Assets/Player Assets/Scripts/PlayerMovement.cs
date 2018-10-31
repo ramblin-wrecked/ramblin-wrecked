@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     float airDrag = 0.95f;
     Vector3 bonusGravity;
     float distToGround = 1;
-    bool canDoubleJump;
+    public bool canDoubleJump;
 
 
     //moving Variables
