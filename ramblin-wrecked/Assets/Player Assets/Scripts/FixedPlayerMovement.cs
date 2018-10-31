@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
+[RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]
 public class FixedPlayerMovement : MonoBehaviour
 {
 
@@ -50,7 +50,7 @@ public class FixedPlayerMovement : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody>();
         charCtrl = GetComponent<CharacterController>();
-        charCollider = GetComponent<CapsuleCollider>();
+        charCollider = GetComponent<BoxCollider>();
         anim = GetComponent<Animator>();
         transform.localScale = new Vector3(scaleBy, scaleBy, scaleBy);
     }
@@ -165,15 +165,15 @@ public class FixedPlayerMovement : MonoBehaviour
         }
         else
         {
-            if (canDoubleJump && Input.GetButtonDown(input))
-            {
-                //moveVelocity = Vector3.zero;
-                //maxAirVel = 1000f;
-                anim.SetTrigger("IsDoubleJumping");
-                if (running) rigidbody.velocity = new Vector3(rigidbody.velocity.x, 1.25f * scaleBy * runJumpVel, rigidbody.velocity.z);
-                else rigidbody.velocity = new Vector3(rigidbody.velocity.x, 1.25f * scaleBy * walkJumpVel, rigidbody.velocity.z);
+            if(!Input.GetButton(input)) {
+                if (canDoubleJump && Input.GetButtonDown(input))
+                {
+                    anim.SetTrigger("IsDoubleJumping");
+                    if (running) rigidbody.velocity = new Vector3(rigidbody.velocity.x, 1.25f * scaleBy * runJumpVel, rigidbody.velocity.z);
+                    else rigidbody.velocity = new Vector3(rigidbody.velocity.x, 1.25f * scaleBy * walkJumpVel, rigidbody.velocity.z);
 
-                canDoubleJump = false;
+                    canDoubleJump = false;
+                }
             }
             if (rigidbody.velocity.y < 0)
             {

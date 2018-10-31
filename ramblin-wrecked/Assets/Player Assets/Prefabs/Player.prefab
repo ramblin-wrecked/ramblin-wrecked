@@ -19,12 +19,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4556925983641318}
-  - component: {fileID: 136878734405903836}
+  - component: {fileID: 65703760865611482}
   - component: {fileID: 54079146468975958}
   - component: {fileID: 114159488199991680}
   - component: {fileID: 114010396364398682}
   - component: {fileID: 95661097348525978}
-  - component: {fileID: 114170574540677312}
   - component: {fileID: 114785592471053186}
   m_Layer: 0
   m_Name: Player
@@ -353,6 +352,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!65 &65703760865611482
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1095781193608598}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.6, y: 3, z: 1.6}
+  m_Center: {x: -0, y: 0.5, z: 0}
 --- !u!95 &95661097348525978
 Animator:
   serializedVersion: 3
@@ -400,23 +411,6 @@ MonoBehaviour:
   isDizzy: 0
   maxDizzyDuration: 210
   curDizzyDuration: 0
---- !u!114 &114170574540677312
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1095781193608598}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24cacd83a825afd4f937ff5d8921c0f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canDoubleJump: 0
-  moveVelocity: {x: 0, y: 0, z: 0}
-  scaleBy: 1
-  isDizzy: 0
-  maxDizzyDuration: 210
-  curDizzyDuration: 0
 --- !u!114 &114785592471053186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -429,16 +423,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitCup: 0
---- !u!136 &136878734405903836
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1095781193608598}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.8
-  m_Height: 3
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.5, z: 0}
