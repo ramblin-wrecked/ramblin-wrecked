@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour {
 
     Animator anim;
     public WallCollision wallCollision;
+    public WallCollision winWallCollision;
 
 	// Use this for initialization
 	void Start () {
@@ -24,6 +25,11 @@ public class UIManager : MonoBehaviour {
         if (wallCollision.GameOver)
         {
             anim.SetTrigger("GameOver");
+            TimeKeeper.isPaused = false;
+        }
+        if (winWallCollision.GameOver)
+        {
+            anim.SetTrigger("Win");
             TimeKeeper.isPaused = false;
         }
 	}
