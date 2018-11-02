@@ -16,7 +16,7 @@ public class CollectableScript : MonoBehaviour {
         trans = GetComponent<Transform>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         trans.rotation = Quaternion.AngleAxis(TimeKeeper.GetTime() * 102.86f, new Vector3(0, 1, 0));
     }

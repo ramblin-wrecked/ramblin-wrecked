@@ -22,9 +22,6 @@ GameObject:
   - component: {fileID: 33249678061646176}
   - component: {fileID: 23208332730404990}
   - component: {fileID: 64518869057435978}
-  - component: {fileID: 135513668010669626}
-  - component: {fileID: 95646522543011120}
-  - component: {fileID: 114835262590990350}
   m_Layer: 0
   m_Name: Pickup
   m_TagString: Untagged
@@ -40,6 +37,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4682003754397026}
+  - component: {fileID: 135123657918702228}
+  - component: {fileID: 95909331240351258}
+  - component: {fileID: 114376059694564652}
   m_Layer: 0
   m_Name: QuadrupleCreditToken
   m_TagString: Untagged
@@ -67,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1718003068329234}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -9730.743, y: 220.19727, z: 86.30727}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4206010514366150}
@@ -130,13 +130,13 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300004, guid: 959be6347b65b7a4c9baa6bc323541fd, type: 3}
---- !u!95 &95646522543011120
+--- !u!95 &95909331240351258
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1072811183624348}
+  m_GameObject: {fileID: 1718003068329234}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 4124d76f259297547b536231ffc175b6, type: 2}
@@ -148,27 +148,27 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114835262590990350
+--- !u!114 &114376059694564652
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1072811183624348}
+  m_GameObject: {fileID: 1718003068329234}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d61dd1d366680044699d80b8ac343d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   creditValue: 4
---- !u!135 &135513668010669626
+--- !u!135 &135123657918702228
 SphereCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1072811183624348}
+  m_GameObject: {fileID: 1718003068329234}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.25
+  m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
