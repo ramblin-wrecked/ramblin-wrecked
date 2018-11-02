@@ -14,6 +14,6 @@ public class GameState : MonoBehaviour {
 
     public static float CalculateGPA()
     {
-        return Mathf.Min(4f, 1200 * credits / (maxCreditsPerLevel * TimeKeeper.GetTime()));
+        return Mathf.Min(4f, (4f * credits / maxCreditsPerLevel) + (10 * credits / (maxCreditsPerLevel * TimeKeeper.GetTime())));
     }
 }
