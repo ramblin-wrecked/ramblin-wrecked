@@ -15,7 +15,7 @@ public class TimeKeeper : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
         dt = isPaused ? 0f : Time.deltaTime;
         time += dt;
 	}
