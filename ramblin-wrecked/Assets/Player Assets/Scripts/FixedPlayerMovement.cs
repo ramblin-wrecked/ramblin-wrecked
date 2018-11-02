@@ -165,11 +165,10 @@ public class FixedPlayerMovement : MonoBehaviour
         }
         else
         {
-            if(!Input.GetButton(input)) {
-                anim.SetTrigger("IsDoubleJumping");
+            if(canDoubleJump && Input.GetButtonDown(input)) {
+                //anim.SetTrigger("IsDoubleJumping");
                 if (running) rigidbody.velocity = new Vector3(rigidbody.velocity.x, 1.25f * scaleBy * runJumpVel, rigidbody.velocity.z);
                 else rigidbody.velocity = new Vector3(rigidbody.velocity.x, 1.25f * scaleBy * walkJumpVel, rigidbody.velocity.z);
-
                 canDoubleJump = false;
             }
             if (rigidbody.velocity.y < 0)
