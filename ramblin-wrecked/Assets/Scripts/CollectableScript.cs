@@ -16,11 +16,6 @@ public class CollectableScript : MonoBehaviour {
         trans = GetComponent<Transform>();
     }
 
-    private void Update()
-    {
-        trans.rotation = Quaternion.AngleAxis(TimeKeeper.GetTime() * 102.86f, new Vector3(0, 1, 0));
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (true) // TODO check if colliding thing is player
