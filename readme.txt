@@ -7,7 +7,7 @@ How To Play:
 1. Start .exe
 2. Select How To Play
 3. Go through test of how to move the Player
-4. Click through and play game.
-5. Get hit by cup to get the reverse collision. 
-6. Collect token to have 4.0 GPA.
+4. CDon't move and lose game. Restart and and play game.
+5. Get hit by cup to get the reverse movements. 
+6. Collect tokens to increase GPA.
 7. Get to end game.

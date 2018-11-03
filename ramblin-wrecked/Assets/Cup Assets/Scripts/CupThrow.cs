@@ -16,7 +16,7 @@ public class CupThrow : MonoBehaviour {
 
     private void OnTriggerEnter(Collider c)
     {
-        if (c.attachedRigidbody != null)
+        if (c.gameObject.tag == "Player")
         {
             Cuppy.gameObject.SetActive(true);
             Cuppy.GetComponent<Animator>().SetTrigger("Throw");
@@ -28,7 +28,7 @@ public class CupThrow : MonoBehaviour {
 
     private void OnTriggerExit(Collider c)
     {
-        if (c.attachedRigidbody != null)
+        if (c.gameObject.tag == "Player")
         {
             Cuppy.GetComponent<Animator>().SetTrigger("EndThrow");
             Cuppy.gameObject.SetActive(false);
