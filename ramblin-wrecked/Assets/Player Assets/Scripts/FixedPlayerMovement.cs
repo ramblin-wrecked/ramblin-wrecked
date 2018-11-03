@@ -197,7 +197,7 @@ public class FixedPlayerMovement : MonoBehaviour
 
     void OnTriggerEnter(Collider c)
     {
-        if (c.tag == "Cup")
+        if (c.tag == "Default")
         {
             isDizzy = true;
         }
