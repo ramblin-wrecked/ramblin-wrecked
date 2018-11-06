@@ -44,6 +44,9 @@ public class PlayerMovement : MonoBehaviour
     public int maxDizzyDuration = 400;
     public int curDizzyDuration = 0;
 
+    public AudioSource jumpSFX1;
+    public AudioSource jumpSFX2;
+
 
 
     void Awake()
@@ -157,6 +160,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (running) rigidbody.velocity = new Vector3(rigidbody.velocity.x, scaleBy * runJumpVel, rigidbody.velocity.z);
                 else rigidbody.velocity = new Vector3(rigidbody.velocity.x, scaleBy * walkJumpVel, rigidbody.velocity.z);
+
+                jumpSFX1.Play();
+
                 anim.SetTrigger("IsJumping");
             }
             else rigidbody.velocity.Set(rigidbody.velocity.x, 0f, rigidbody.velocity.y);
@@ -171,6 +177,8 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetTrigger("IsDoubleJumping");
                 if (running) rigidbody.velocity = new Vector3(rigidbody.velocity.x, 1.25f * scaleBy * runJumpVel, rigidbody.velocity.z);
                 else rigidbody.velocity = new Vector3(rigidbody.velocity.x, 1.25f * scaleBy * walkJumpVel, rigidbody.velocity.z);
+
+                jumpSFX2.Play();
 
                 canDoubleJump = false;
             }
