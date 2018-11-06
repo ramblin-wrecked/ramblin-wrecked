@@ -41,7 +41,7 @@ public class FixedPlayerMovement : MonoBehaviour
     bool isRunning;
 
     public bool isDizzy = false;
-    public int maxDizzyDuration = 210;
+    public int maxDizzyDuration = 400;
     public int curDizzyDuration = 0;
 
 
@@ -193,7 +193,7 @@ public class FixedPlayerMovement : MonoBehaviour
 
     void OnTriggerEnter(Collider c)
     {
-        if (c.tag == "Cup")
+        if (c.tag == "Default")
         {
             isDizzy = true;
         }

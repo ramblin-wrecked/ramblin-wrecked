@@ -6,12 +6,12 @@ public class CupHit : MonoBehaviour {
 
     void OnTriggerEnter(Collider c)
     {
-        if (c.attachedRigidbody != null)
+        if (c.gameObject.tag == "Player")
         {
-            CheckCup bc = c.attachedRigidbody.gameObject.GetComponent<CheckCup>();
+            FixedPlayerMovement bc = c.attachedRigidbody.gameObject.GetComponent<FixedPlayerMovement>();
             if (bc != null)
             {
-                bc.isHit();
+                bc.isDizzy = true;
                 this.gameObject.SetActive(false);
             }
         }

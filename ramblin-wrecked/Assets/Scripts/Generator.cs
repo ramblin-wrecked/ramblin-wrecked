@@ -10,8 +10,7 @@ public class Generator : MonoBehaviour {
     float xPos;
     float yPos;
     float zPos;
-
-    const float radius = 0.5f;
+    float[] allX = new float[3];
 
     public void Start()
     {
@@ -24,22 +23,27 @@ public class Generator : MonoBehaviour {
 
     public void SpawnObject(int i)
     {
-        xPos = i;
 
-        if (xPos < 1)
-            xPos = -2000;
-        else if (xPos > 1)
-            xPos = -2000;
-        else
-            xPos = 0;
-        //This will align your xPos to 2, 0 or -2.
+        xPos = Random.Range(-5500,2000);
 
-        //zPos = player.transform.position.z + 50;
-        //I'm not sure if this is what you want.
-        //If not you can simply use the Random class methods
-        yPos = -106;
+        if (i > 0) {
+            float tmp = allX[i--];
+            if (xPos <= (500 + tmp) && xPos >= (tmp - 500)) {
+                xPos = Random.Range(tmp + 500, 2000);
+            }
+        }
+        if (i == 2)
+        {
+            float tmp = allX[0];
+            if (xPos <= (500 + tmp) && xPos >= (tmp - 500))
+            {
+                xPos = Random.Range(tmp + 500, 2000);
+            }
+        }
+        allX[i] = xPos;
+
+        yPos = -148;
         zPos = 248;
-        //yPos = CheckForYPosition();
         Instantiate(cup, new Vector3(xPos, yPos, zPos), new Quaternion(0, 180, 0, 0));
     }
 

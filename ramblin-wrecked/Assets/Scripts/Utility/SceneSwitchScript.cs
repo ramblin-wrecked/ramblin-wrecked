@@ -15,4 +15,9 @@ public class SceneSwitchScript : MonoBehaviour {
         SceneManager.LoadScene("Scenes/MainGame");
     }
 
+    public void SwitchToHowTo()
+    {
+        SceneManager.LoadScene("Scenes/HowTo");
+    }
+
 }
