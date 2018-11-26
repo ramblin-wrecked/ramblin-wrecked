@@ -5,7 +5,6 @@ using UnityEngine;
 public class Generator : MonoBehaviour {
 
     public GameObject cup;
-    public GameObject player;
 
     float xPos;
     float yPos;
@@ -14,7 +13,6 @@ public class Generator : MonoBehaviour {
 
     public void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
         for (int i = 0; i<3; i++)
         {
             SpawnObject(i);

@@ -209,4 +209,10 @@ public class PlayerMovement : MonoBehaviour
             isDizzy = true;
         }
     }
+
+    //When hit with books, change speed per book
+
+    //if coffee is collected, change speed to coffee speed for 4 seconds, then back to prior velocity
+
+    //when HWs are collected, books are removed
 }

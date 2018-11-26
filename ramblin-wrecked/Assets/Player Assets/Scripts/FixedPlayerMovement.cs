@@ -44,6 +44,8 @@ public class FixedPlayerMovement : MonoBehaviour
     public int maxDizzyDuration = 400;
     public int curDizzyDuration = 0;
 
+    public int booksNum = 0;
+
     public AudioSource jumpSFX1;
     public AudioSource jumpSFX2;
 
