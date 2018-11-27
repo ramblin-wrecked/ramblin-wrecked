@@ -45,6 +45,10 @@ public class FixedPlayerMovement : MonoBehaviour
     public int curDizzyDuration = 0;
 
     public int booksNum = 0;
+    public bool hasCoffee = false;
+    Vector3 originSpeed;
+    public int maxHyperDuration = 400;
+    public int curHyperDuration = 400;
 
     public AudioSource jumpSFX1;
     public AudioSource jumpSFX2;
@@ -64,11 +68,43 @@ public class FixedPlayerMovement : MonoBehaviour
     {
         if (!TimeKeeper.isPaused)
         {
+            BooksHandler();
+            CoffeeHandler();
             DizzyHandler();
             Vector3.Normalize(dirVector);
             Point(dirVector);
             Move(dirVector, Input.GetButton("Fire3"));
             jump("Jump", Input.GetButton("Fire3"));
+        }
+    }
+
+    void BooksHandler()
+    {
+        if(booksNum > 0)
+        {
+            //change vel per book
+            float bookWt = 1f - ((float)booksNum * .1f);
+            dirVector.Set(bookWt * Input.GetAxisRaw("Horizontal"), 0f, bookWt * Input.GetAxisRaw("Vertical"));
+        }
+    }
+
+    //FIX THIS
+    void CoffeeHandler()
+    {
+        if(hasCoffee)
+        {
+            originSpeed = dirVector;
+            //make "hyper" for seconds
+            dirVector.Set(3f * Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
+            curHyperDuration -= 1;
+            if (curHyperDuration <= 0)
+            {
+                curHyperDuration = maxHyperDuration;
+                hasCoffee = false;
+            }
+        } else
+        {
+            dirVector = originSpeed;
         }
     }
 
@@ -205,4 +241,5 @@ public class FixedPlayerMovement : MonoBehaviour
             isDizzy = true;
         }
     }
+
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO - AND HOMEWORKS COLLECTABLES
 public class BookGenerator : MonoBehaviour {
     public GameObject[] books = new GameObject[4];
     private GameObject player;
@@ -15,6 +16,7 @@ public class BookGenerator : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
         bookInd = 0;
         timer = 0;
+        
     }
 
     void SpawnObject()
@@ -25,17 +27,17 @@ public class BookGenerator : MonoBehaviour {
             {
                 bookInd = 0;
             }
-            Instantiate(books[(Random.Range(0, books.Length))], new Vector3(player.transform.position.x, player.transform.position.y-100, player.transform.position.z), new Quaternion(0, 180, 0, 0));
-        }
-
-        
+            Instantiate(books[(Random.Range(0, books.Length))], new Vector3(player.transform.position.x, player.transform.position.y-100, player.transform.position.z), new Quaternion(0, 0, 0, 0));
+        } 
     }
+
+
 
     // Update is called once per frame
     void Update () {
         //if time to spawn another - change X
         timer += Time.deltaTime;
-        if(timer >= 5.0)
+        if(timer >= 2.0)
         {
             SpawnObject();
         }

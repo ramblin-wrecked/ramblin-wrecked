@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BookHit : MonoBehaviour {
+public class CoffeeCollectable : MonoBehaviour
+{
 
     void OnTriggerEnter(Collider c)
     {
@@ -11,14 +12,11 @@ public class BookHit : MonoBehaviour {
             FixedPlayerMovement bc = c.attachedRigidbody.gameObject.GetComponent<FixedPlayerMovement>();
             if (bc != null)
             {
-                bc.booksNum += 1;
+                bc.hasCoffee = true;
                 this.gameObject.SetActive(false);
-                //turn off animation
-                //this.animation
 
-                //Add it to player's back (in other script
-                //if (bc.book)
             }
+
         }
     }
 }

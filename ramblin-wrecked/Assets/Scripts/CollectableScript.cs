@@ -16,9 +16,9 @@ public class CollectableScript : MonoBehaviour {
         trans = GetComponent<Transform>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider c)
     {
-        if (true) // TODO check if colliding thing is player
+        if (c.gameObject.tag == "Player") 
         {
             GameState.credits += creditValue;
             anim.SetTrigger("Touches Player");
