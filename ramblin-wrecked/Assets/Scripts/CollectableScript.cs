@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(SphereCollider), typeof(Animator))]
+[RequireComponent(typeof(SphereCollider), typeof(Animator), typeof(AudioSource))]
 public class CollectableScript : MonoBehaviour {
 
     Animator anim;
+    AudioSource sfx;
     Transform trans;
 
     public int creditValue;
@@ -13,6 +14,7 @@ public class CollectableScript : MonoBehaviour {
     private void Start()
     {
         anim = GetComponent<Animator>();
+        sfx = GetComponent<AudioSource>();
         trans = GetComponent<Transform>();
     }
 
@@ -22,6 +24,7 @@ public class CollectableScript : MonoBehaviour {
         {
             GameState.credits += creditValue;
             anim.SetTrigger("Touches Player");
+            sfx.Play();
         }
     }
 
