@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(BoxCollider))]
 public class WallCollision : MonoBehaviour
 {
 
     private BoxCollider bc;
+
+    public SceneSwitchScript sceneSwapper;
     public bool GameOver = false;
+
     void Awake()
     {
         bc = GetComponent<BoxCollider>();
@@ -17,11 +21,19 @@ public class WallCollision : MonoBehaviour
             Debug.Log("Box Collider could not be found");
         }
     }
+
     private void OnTriggerEnter(Collider c)
     {
-        if (!GameOver && c.tag == "Player")
+        if (c.tag == "Player")
         {
-            GameOver = true;
+            if (sceneSwapper != null)
+            {
+                sceneSwapper.SwitchToGame();
+            }
+            else if (!GameOver)
+            {
+                GameOver = true;
+            }
         }
     }
 }
