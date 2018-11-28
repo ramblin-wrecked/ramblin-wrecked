@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour {
             anim.SetTrigger("GameOver");
             TimeKeeper.isPaused = false;
         }
-        if (winWallCollision.GameOver)
+        if (winWallCollision != null && winWallCollision.GameOver)
         {
             anim.SetTrigger("Win");
             TimeKeeper.isPaused = false;

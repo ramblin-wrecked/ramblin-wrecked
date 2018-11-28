@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitchScript : MonoBehaviour {
 
+    public int level = 0;
+
 	public void SwitchToMainMenu()
     {
         SceneManager.LoadScene("Scenes/MainMenu");
@@ -12,7 +14,13 @@ public class SceneSwitchScript : MonoBehaviour {
 
     public void SwitchToGame()
     {
-        SceneManager.LoadScene("Scenes/MainGame");
+        if (level == 0)
+        {
+            SceneManager.LoadScene("Scenes/MainGame");
+        } else if (level == 1)
+        {
+            SceneManager.LoadScene("Scenes/SecondYear");
+        }
     }
 
     public void SwitchToHowTo()
