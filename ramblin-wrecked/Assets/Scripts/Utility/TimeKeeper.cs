@@ -8,10 +8,12 @@ public class TimeKeeper : MonoBehaviour {
     static float dt;
     public static bool isPaused;
 
+    public bool pauseAtStart = false;
+
 	// Use this for initialization
 	void Start () {
         time = 0f;
-        isPaused = false;
+        isPaused = pauseAtStart;
 	}
 	
 	// Update is called once per frame

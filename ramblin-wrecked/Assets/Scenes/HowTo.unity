@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.590481, g: 0.3976756, b: 0.6247115, a: 1}
+  m_IndirectSpecularColor: {r: 0.5904653, g: 0.3976756, b: 0.6247135, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5427,7 +5427,6 @@ GameObject:
   - component: {fileID: 2031910695}
   - component: {fileID: 2031910694}
   - component: {fileID: 2031910698}
-  - component: {fileID: 2031910699}
   - component: {fileID: 2031910701}
   - component: {fileID: 2031910700}
   m_Layer: 5
@@ -5536,19 +5535,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2031910699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2031910693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89c08a20924b6a14db9c1eddf7704011, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wallCollision: {fileID: 0}
-  winWallCollision: {fileID: 0}
 --- !u!114 &2031910700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5571,3 +5557,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f62104064dc8af841a5087f1be27ebeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseAtStart: 1
