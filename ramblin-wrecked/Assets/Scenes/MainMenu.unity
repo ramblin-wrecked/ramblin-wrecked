@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074005, b: 0.35872722, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -891,6 +891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf31185f0b1000e4ca0617c291ff914b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 0
 --- !u!95 &1391202282
 Animator:
   serializedVersion: 3
@@ -1051,7 +1052,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: OPTIONS
+  m_Text: INSTRUCTIONS
 --- !u!222 &1451022453
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1232,6 +1233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf31185f0b1000e4ca0617c291ff914b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 0
 --- !u!95 &1779928790
 Animator:
   serializedVersion: 3
