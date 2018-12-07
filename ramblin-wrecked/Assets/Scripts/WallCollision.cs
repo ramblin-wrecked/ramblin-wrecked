@@ -10,16 +10,12 @@ public class WallCollision : MonoBehaviour
     private BoxCollider bc;
 
     public SceneSwitchScript sceneSwapper;
+    public int switchToLevel;
     public bool GameOver = false;
 
     void Awake()
     {
         bc = GetComponent<BoxCollider>();
-
-        if (bc == null)
-        {
-            Debug.Log("Box Collider could not be found");
-        }
     }
 
     private void OnTriggerEnter(Collider c)
@@ -28,7 +24,15 @@ public class WallCollision : MonoBehaviour
         {
             if (sceneSwapper != null)
             {
-                sceneSwapper.SwitchToGame();
+                switch (switchToLevel)
+                {
+                    case 1:
+                        sceneSwapper.SwitchToLevel1();
+                        break;
+                    case 2:
+                        sceneSwapper.SwitchToLevel2();
+                        break;
+                }
             }
             else if (!GameOver)
             {
