@@ -12,7 +12,7 @@ public class RotatingTrigger : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		amountRotated = 0f;
+		amountRotated = 90f;
 		turn = false;
 		
 	}
@@ -20,11 +20,12 @@ public class RotatingTrigger : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (turn == true) {
-			float frameRotation = rotation_per_second * Time.deltaTime;
+			float frameRotation = rotation_per_second * Time.deltaTime * -1f;
+			Debug.Log ("FRAME ROTATION" + frameRotation);
 			rotatingObject.transform.Rotate (0f, frameRotation, 0f);
 			amountRotated += frameRotation;
 
-			if (amountRotated >= 90f) {
+			if (amountRotated <= 0f) {
 				turn = false;
 				amountRotated = 0f;
 			}
@@ -32,12 +33,11 @@ public class RotatingTrigger : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		if (!turn) {
-			Debug.Log ("Object Entered the trigger");
-			turn = true;
+		if (other.gameObject.tag == "Player") {
+			if (!turn) {
+				Debug.Log ("Object Entered the trigger");
+				turn = true;
+			}
 		}
-
 	}
-
-
 }
