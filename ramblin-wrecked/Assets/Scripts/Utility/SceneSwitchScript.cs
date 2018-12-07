@@ -7,9 +7,29 @@ public class SceneSwitchScript : MonoBehaviour {
 
     public int level = 0;
 
+    void Switch(string sceneFilepath)
+    {
+        SceneManager.LoadScene(sceneFilepath);
+    }
+
 	public void SwitchToMainMenu()
     {
-        SceneManager.LoadScene("Scenes/MainMenu");
+        Switch("Scenes/MainMenu");
+    }
+
+    public void SwitchToLevel1()
+    {
+        Switch("Scenes/MainGame");
+    }
+
+    public void SwitchToLevel2()
+    {
+        Switch("Scenes/SecondYear");
+    }
+
+    public void SwitchToHowTo()
+    {
+        SceneManager.LoadScene("Scenes/HowTo");
     }
 
     public void SwitchToGame()
@@ -17,15 +37,11 @@ public class SceneSwitchScript : MonoBehaviour {
         if (level == 0)
         {
             SceneManager.LoadScene("Scenes/MainGame");
-        } else if (level == 1)
+        }
+        else if (level == 1)
         {
             SceneManager.LoadScene("Scenes/SecondYear");
         }
-    }
-
-    public void SwitchToHowTo()
-    {
-        SceneManager.LoadScene("Scenes/HowTo");
     }
 
 }
