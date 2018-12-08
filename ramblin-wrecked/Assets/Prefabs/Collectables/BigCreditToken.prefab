@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 95558369130077096}
   - component: {fileID: 114098074151824922}
   - component: {fileID: 82796422382489764}
+  - component: {fileID: 114612926426420196}
   m_Layer: 0
   m_Name: BigCreditToken
   m_TagString: Untagged
@@ -256,6 +257,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creditValue: 6
+--- !u!114 &114612926426420196
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1224314719730166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57450403799f21b468ff3a4ee1a84bed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  perc: 1
+  bg: 0
 --- !u!135 &135797771402657630
 SphereCollider:
   m_ObjectHideFlags: 1

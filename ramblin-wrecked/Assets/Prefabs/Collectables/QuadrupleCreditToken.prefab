@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 95909331240351258}
   - component: {fileID: 114376059694564652}
   - component: {fileID: 82801692551216456}
+  - component: {fileID: 114049323950468550}
   m_Layer: 0
   m_Name: QuadrupleCreditToken
   m_TagString: Untagged
@@ -244,6 +245,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114049323950468550
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1718003068329234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57450403799f21b468ff3a4ee1a84bed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  perc: 1
+  bg: 0
 --- !u!114 &114376059694564652
 MonoBehaviour:
   m_ObjectHideFlags: 1
