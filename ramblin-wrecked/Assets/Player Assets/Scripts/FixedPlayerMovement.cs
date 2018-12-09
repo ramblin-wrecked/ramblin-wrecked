@@ -53,6 +53,8 @@ public class FixedPlayerMovement : MonoBehaviour
     public AudioSource jumpSFX1;
     public AudioSource jumpSFX2;
 
+    bool restrained = true;
+    Vector3 angVelocity;
 
 
     void Awake()
@@ -155,7 +157,10 @@ public class FixedPlayerMovement : MonoBehaviour
         {
             moveVelocity += dirVector * scaleBy * airAccel * TimeKeeper.GetDeltaTime();
             moveVelocity *= airDrag;
-            moveVelocity = Vector3.ClampMagnitude(moveVelocity, maxAirVel);
+            if (restrained)
+            {
+                moveVelocity = Vector3.ClampMagnitude(moveVelocity, maxAirVel);
+            }
         }
         // regulates running friction
         if (xVel != 0f)
@@ -175,6 +180,11 @@ public class FixedPlayerMovement : MonoBehaviour
                 anim.SetTrigger("IsRunning");
                 zVel *= friction;
             }
+        }
+
+        if (!restrained)
+        {
+            rigidbody.angularVelocity = angVelocity;
         }
     }
 
@@ -242,4 +252,14 @@ public class FixedPlayerMovement : MonoBehaviour
         }
     }
 
+
+    public void GoNuts()
+    {
+        restrained = false;
+
+        rigidbody.constraints = RigidbodyConstraints.None;
+
+        moveVelocity = new Vector3(0f, scaleBy * runJumpVel * 12f, 0f);
+        angVelocity = new Vector3(0f, 0f, -135f);
+    }
 }
