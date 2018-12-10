@@ -11,13 +11,26 @@ public class WallCollision : MonoBehaviour
     private AudioSource sfx;
 
     public SceneSwitchScript sceneSwapper;
-    public int switchToLevel;
+    public Animator fadeOut;
+    public float timeUntilFadeOut;
+
     public bool GameOver = false;
 
     void Awake()
     {
         bc = GetComponent<BoxCollider>();
         sfx = GetComponent<AudioSource>();
+    }
+
+    private IEnumerator LoadNextScene()
+    {
+        yield return new WaitForSecondsRealtime(timeUntilFadeOut);
+
+        fadeOut.SetTrigger("FadeOut");
+        yield return new WaitForSecondsRealtime(1.0f);
+
+        sceneSwapper.NextLevel();
+        yield return null;
     }
 
     private void OnTriggerEnter(Collider c)
@@ -34,6 +47,7 @@ public class WallCollision : MonoBehaviour
                 FixedPlayerMovement pm = c.GetComponent<FixedPlayerMovement>();
                 pm.GoNuts();
 
+                StartCoroutine("LoadNextScene");
 
                 /*switch (switchToLevel)
                 {

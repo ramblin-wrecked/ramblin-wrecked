@@ -64,12 +64,17 @@ public class FixedPlayerMovement : MonoBehaviour
         charCollider = GetComponent<BoxCollider>();
         anim = GetComponent<Animator>();
         transform.localScale = new Vector3(scaleBy, scaleBy, scaleBy);
+
+        Physics.gravity = new Vector3(0f, -9.81f, 0f);
     }
 
     void Update()
     {
         if (!TimeKeeper.isPaused)
         {
+            if (!restrained)
+                dirVector = new Vector3(0f, 0f, 0f);
+
             BooksHandler();
             CoffeeHandler();
             DizzyHandler();
@@ -157,10 +162,7 @@ public class FixedPlayerMovement : MonoBehaviour
         {
             moveVelocity += dirVector * scaleBy * airAccel * TimeKeeper.GetDeltaTime();
             moveVelocity *= airDrag;
-            if (restrained)
-            {
-                moveVelocity = Vector3.ClampMagnitude(moveVelocity, maxAirVel);
-            }
+            moveVelocity = Vector3.ClampMagnitude(moveVelocity, maxAirVel);
         }
         // regulates running friction
         if (xVel != 0f)
@@ -180,11 +182,6 @@ public class FixedPlayerMovement : MonoBehaviour
                 anim.SetTrigger("IsRunning");
                 zVel *= friction;
             }
-        }
-
-        if (!restrained)
-        {
-            rigidbody.angularVelocity = angVelocity;
         }
     }
 
@@ -259,7 +256,9 @@ public class FixedPlayerMovement : MonoBehaviour
 
         rigidbody.constraints = RigidbodyConstraints.None;
 
-        moveVelocity = new Vector3(0f, scaleBy * runJumpVel * 12f, 0f);
-        angVelocity = new Vector3(0f, 0f, -135f);
+        rigidbody.velocity = new Vector3(scaleBy * runJumpVel, 2f * scaleBy * runJumpVel, 0f);
+        rigidbody.angularVelocity = new Vector3(0f, 0f, -135f);
+
+        Physics.gravity = new Vector3(4f, -4f, 0f);
     }
 }
