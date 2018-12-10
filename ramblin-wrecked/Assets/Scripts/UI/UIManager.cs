@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour {
 
     Animator anim;
     public WallCollision wallCollision;
+    public WallCollision fallCollision;
     public WallCollision winWallCollision;
 
 	// Use this for initialization
@@ -22,7 +23,7 @@ public class UIManager : MonoBehaviour {
             anim.SetTrigger("ToggleMenu");
             TimeKeeper.isPaused = !TimeKeeper.isPaused;
         }
-        if (wallCollision.GameOver)
+        if (wallCollision.GameOver || (fallCollision != null && fallCollision.GameOver))
         {
             anim.SetTrigger("GameOver");
             TimeKeeper.isPaused = false;
