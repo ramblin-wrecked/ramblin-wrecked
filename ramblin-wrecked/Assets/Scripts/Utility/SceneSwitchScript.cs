@@ -57,6 +57,19 @@ public class SceneSwitchScript : MonoBehaviour {
         }
     }
 
+    public void ReloadLevelWithDelay(float delayBy)
+    {
+        StartCoroutine("DelayedReloadLevel", delayBy);
+    }
+
+    IEnumerator DelayedReloadLevel(float delayBy)
+    {
+        yield return new WaitForSecondsRealtime(delayBy);
+
+        ReloadLevel();
+        yield return null;
+    }
+
     public void NextLevel()
     {
         switch (level)
@@ -68,6 +81,19 @@ public class SceneSwitchScript : MonoBehaviour {
                 SwitchToLevel2();
                 break;
         }
+    }
+
+    public void NextLevelWithDelay(float delayBy)
+    {
+        StartCoroutine("DelayedNextLevel", delayBy);
+    }
+
+    IEnumerator DelayedNextLevel(float delayBy)
+    {
+        yield return new WaitForSecondsRealtime(delayBy);
+
+        NextLevel();
+        yield return null;
     }
 
 }

@@ -2223,6 +2223,16 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114177436222167010, guid: 556d14b34ba742247be9813652deff56,
+        type: 2}
+      propertyPath: m_Text
+      value: QUIT TO DESKTOP
+      objectReference: {fileID: 0}
+    - target: {fileID: 114305374375992286, guid: 556d14b34ba742247be9813652deff56,
+        type: 2}
+      propertyPath: m_Text
+      value: QUIT TO DESKTOP
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 556d14b34ba742247be9813652deff56, type: 2}
   m_IsPrefabAsset: 0
