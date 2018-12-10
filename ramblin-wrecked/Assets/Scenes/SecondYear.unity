@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.47929215, g: 0.7992364, b: 0.8992303, a: 1}
+  m_IndirectSpecularColor: {r: 0.47930557, g: 0.79923743, b: 0.89923185, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8473,6 +8473,11 @@ Prefab:
       propertyPath: fallCollision
       value: 
       objectReference: {fileID: 669478667}
+    - target: {fileID: 224543517606235872, guid: 556d14b34ba742247be9813652deff56,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -4.9999924
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 556d14b34ba742247be9813652deff56, type: 2}
   m_IsPrefabAsset: 0
@@ -10576,22 +10581,6 @@ Prefab:
     - target: {fileID: 4677031335464624, guid: 1433f48bebbbfdf4ba888115dd7d59a8, type: 2}
       propertyPath: m_RootOrder
       value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 4677031335464624, guid: 1433f48bebbbfdf4ba888115dd7d59a8, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 30.000069
-      objectReference: {fileID: 0}
-    - target: {fileID: 4677031335464624, guid: 1433f48bebbbfdf4ba888115dd7d59a8, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 4677031335464624, guid: 1433f48bebbbfdf4ba888115dd7d59a8, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1679735382782580, guid: 1433f48bebbbfdf4ba888115dd7d59a8, type: 2}
-      propertyPath: m_Layer
-      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1433f48bebbbfdf4ba888115dd7d59a8, type: 2}
