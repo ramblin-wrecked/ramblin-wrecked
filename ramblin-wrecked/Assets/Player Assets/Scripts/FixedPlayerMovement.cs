@@ -52,6 +52,7 @@ public class FixedPlayerMovement : MonoBehaviour
 
     public AudioSource jumpSFX1;
     public AudioSource jumpSFX2;
+    public AudioSource dizzySFX;
 
     bool restrained = true;
     Vector3 angVelocity;
@@ -64,6 +65,8 @@ public class FixedPlayerMovement : MonoBehaviour
         charCollider = GetComponent<BoxCollider>();
         anim = GetComponent<Animator>();
         transform.localScale = new Vector3(scaleBy, scaleBy, scaleBy);
+
+        dizzySFX.Pause();
 
         Physics.gravity = new Vector3(0f, -9.81f, 0f);
     }
@@ -126,10 +129,14 @@ public class FixedPlayerMovement : MonoBehaviour
                 curDizzyDuration = maxDizzyDuration;
                 isDizzy = false;
             }
+
+            dizzySFX.UnPause();
         }
         else
         {
             dirVector.Set(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
+
+            dizzySFX.Pause();
         }
     }
 
