@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider), typeof(Animator))]
+[RequireComponent(typeof(Collider), typeof(AudioSource), typeof(Animator))]
 public class HWCollectable : MonoBehaviour {
     Animator anim;
-    Transform trans;
+    AudioSource sfx;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
-        trans = GetComponent<Transform>();
+        sfx = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter(Collider c)
@@ -24,7 +24,9 @@ public class HWCollectable : MonoBehaviour {
                 {
                     bc.booksNum -= 1;
                 }
-                this.gameObject.SetActive(false);
+
+                anim.SetTrigger("TouchesPlayer");
+                sfx.Play();
             }
             
         }

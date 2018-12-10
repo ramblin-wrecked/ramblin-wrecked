@@ -7,7 +7,6 @@ public class CollectableScript : MonoBehaviour {
 
     Animator anim;
     AudioSource sfx;
-    Transform trans;
 
     public int creditValue;
 
@@ -15,7 +14,6 @@ public class CollectableScript : MonoBehaviour {
     {
         anim = GetComponent<Animator>();
         sfx = GetComponent<AudioSource>();
-        trans = GetComponent<Transform>();
     }
 
     private void OnTriggerEnter(Collider c)
