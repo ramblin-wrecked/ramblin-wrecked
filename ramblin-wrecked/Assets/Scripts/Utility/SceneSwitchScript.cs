@@ -44,4 +44,30 @@ public class SceneSwitchScript : MonoBehaviour {
         }
     }
 
+    public void ReloadLevel()
+    {
+        switch (level)
+        {
+            case 1:
+                SwitchToLevel1();
+                break;
+            case 2:
+                SwitchToLevel2();
+                break;
+        }
+    }
+
+    public void NextLevel()
+    {
+        switch (level)
+        {
+            case 0:
+                SwitchToLevel1();
+                break;
+            case 1:
+                SwitchToLevel2();
+                break;
+        }
+    }
+
 }
