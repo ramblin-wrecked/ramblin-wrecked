@@ -13,11 +13,6 @@ public class BookHit : MonoBehaviour {
             {
                 bc.booksNum += 1;
                 this.gameObject.SetActive(false);
-                //turn off animation
-                //this.animation
-
-                //Add it to player's back (in other script
-                //if (bc.book)
             }
         }
     }

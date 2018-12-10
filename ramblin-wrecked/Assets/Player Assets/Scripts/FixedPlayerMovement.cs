@@ -57,7 +57,7 @@ public class FixedPlayerMovement : MonoBehaviour
     bool restrained = true;
     Vector3 angVelocity;
 
-
+    
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();

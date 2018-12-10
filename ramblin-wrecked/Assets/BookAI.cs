@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(UnityEngine.AI.NavMeshAgent), typeof(Animator))]
-public class CupAI : MonoBehaviour {
+public class BookAI : MonoBehaviour {
     UnityEngine.AI.NavMeshAgent navMesh;
     Animator anim;
 
@@ -11,7 +11,8 @@ public class CupAI : MonoBehaviour {
     //public GameObject target;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         anim = GetComponent<Animator>();
         navMesh = GetComponent<UnityEngine.AI.NavMeshAgent>();
         if (anim == null)
@@ -28,9 +29,10 @@ public class CupAI : MonoBehaviour {
             Debug.Log("Player not found");
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         //anim.SetFloat("throw", navMesh.velocity.magnitude / navMesh.speed);
 
         Vector3 mag = (target.transform.position - this.transform.position);
@@ -45,7 +47,7 @@ public class CupAI : MonoBehaviour {
             //reverse direction of controls
             //stop throwing
 
-            
+
         }
     }
 }
