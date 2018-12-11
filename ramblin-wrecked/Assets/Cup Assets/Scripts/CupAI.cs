@@ -37,7 +37,7 @@ public class CupAI : MonoBehaviour {
         float dist = mag.magnitude;
         float lookAhead = dist / navMesh.speed;
         //VelControl getvel = gameObject.GetComponent("VelControl") as VelControl;
-        Vector3 futureTarget = target.transform.position;// + target.GetComponent<VelControl>().velocity;
+        Vector3 futureTarget = target.transform.position+ target.GetComponent<VelControl>().velocity;
         navMesh.SetDestination(futureTarget);
         if (navMesh.remainingDistance <= .7 && navMesh.pathPending != true) //collided!
         {

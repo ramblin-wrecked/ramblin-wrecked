@@ -19,6 +19,7 @@ public class bookThrow : MonoBehaviour {
         if (c.gameObject.tag == "Player")
         {
             Cuppy.gameObject.SetActive(true);
+            Cuppy.GetComponent<Animator>().ResetTrigger("Throw");
             Cuppy.GetComponent<Animator>().SetTrigger("Throw");
         }
 
@@ -29,6 +30,7 @@ public class bookThrow : MonoBehaviour {
     {
         if (c.gameObject.tag == "Player")
         {
+            Cuppy.GetComponent<Animator>().ResetTrigger("Throw");
             Cuppy.GetComponent<Animator>().SetTrigger("EndThrow");
             Cuppy.gameObject.SetActive(false);
 

@@ -46,6 +46,8 @@ public class FixedPlayerMovement : MonoBehaviour
 
     public int booksNum = 0;
     public bool hasCoffee = false;
+    public float caffiene = 1f;
+    public float bookWt = 1f;
     Vector3 originSpeed;
     public int maxHyperDuration = 400;
     public int curHyperDuration = 400;
@@ -93,29 +95,24 @@ public class FixedPlayerMovement : MonoBehaviour
         if(booksNum > 0)
         {
             //change vel per book
-            float bookWt = 1f - ((float)booksNum * .1f);
-            dirVector.Set(bookWt * Input.GetAxisRaw("Horizontal"), 0f, bookWt * Input.GetAxisRaw("Vertical"));
+            bookWt = 1f - ((float)booksNum * .2f);
         }
     }
 
-    //FIX THIS
     void CoffeeHandler()
     {
         if(hasCoffee)
         {
-            originSpeed = dirVector;
             //make "hyper" for seconds
-            dirVector.Set(3f * Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
+            caffiene = 2f;
             curHyperDuration -= 1;
             if (curHyperDuration <= 0)
             {
+                caffiene = 1f;
                 curHyperDuration = maxHyperDuration;
                 hasCoffee = false;
             }
-        } else
-        {
-            dirVector = originSpeed;
-        }
+        } 
     }
 
     void DizzyHandler()
@@ -143,7 +140,14 @@ public class FixedPlayerMovement : MonoBehaviour
     //Moves the player
     void Move(Vector3 dirVector, bool running)
     {
-        rigidbody.position += moveVelocity;
+        if(caffiene > 1f)
+        {
+            rigidbody.position += moveVelocity * caffiene;
+        } else
+        {
+            rigidbody.position += moveVelocity * bookWt;
+        }
+        
         if (IsGrounded())
         {
             if (running)

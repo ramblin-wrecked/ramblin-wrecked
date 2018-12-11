@@ -23,6 +23,7 @@ public class HWCollectable : MonoBehaviour {
                 if(bc.booksNum > 0)
                 {
                     bc.booksNum -= 1;
+                    bc.bookWt += .2f;
                 }
 
                 anim.SetTrigger("TouchesPlayer");
