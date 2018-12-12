@@ -259,13 +259,21 @@ public class FixedPlayerMovement : MonoBehaviour
 
     bool IsGrounded()
     {
+<<<<<<< Updated upstream
         if (SuperRaycast.Raycast(new Ray(transform.position, -Vector3.up), target, out hitInfo))
             return groundbound;
+=======
+        return groundbound;
+>>>>>>> Stashed changes
         //return Physics.Raycast(transform.position, -Vector3.up, distToGround * scaleBy + 0.1f);
         //anim.SetTrigger("IsGrounded");
     }
 
+<<<<<<< Updated upstream
     void OnCollisionEnter(Collision collision)
+=======
+    void OnCollisionStay(Collision collision)
+>>>>>>> Stashed changes
     {
         if (collision.contacts.Length > 0)
         {
