@@ -681,6 +681,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4135238493949954}
   - component: {fileID: 111631413366136632}
+  - component: {fileID: 82553557952200714}
+  - component: {fileID: 114630391386785076}
   m_Layer: 0
   m_Name: Audience 4
   m_TagString: Untagged
@@ -1935,8 +1937,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4770075774764184}
-  - component: {fileID: 82308737072493920}
-  - component: {fileID: 114173126415666670}
   m_Layer: 0
   m_Name: CupObstacle
   m_TagString: Untagged
@@ -4266,7 +4266,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1793319364102688}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -3448, y: -148, z: 248}
+  m_LocalPosition: {x: -5579, y: -148, z: 248}
   m_LocalScale: {x: 30, y: 30, z: 30}
   m_Children:
   - {fileID: 4135238493949954}
@@ -4834,12 +4834,12 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 19.138044, y: 5, z: 18}
   m_Center: {x: -0.2791394, y: -1, z: 8}
---- !u!82 &82308737072493920
+--- !u!82 &82553557952200714
 AudioSource:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1793319364102688}
+  m_GameObject: {fileID: 1276463743452784}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -5038,19 +5038,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc25d66bba9707647a3905d064164195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114173126415666670
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1793319364102688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57450403799f21b468ff3a4ee1a84bed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  perc: 1
-  bg: 1
 --- !u!114 &114191332946872280
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5073,6 +5060,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd3a523e71ee7a4ebec8340be655be3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114630391386785076
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1276463743452784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57450403799f21b468ff3a4ee1a84bed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  perc: 1
+  bg: 1
 --- !u!137 &137100358984894418
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
