@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]
-public class FixedPlayerMovementDud : MonoBehaviour
+public class SkinnedPlayerMovement : MonoBehaviour
 {
 
     //jumping Variables
@@ -14,7 +14,7 @@ public class FixedPlayerMovementDud : MonoBehaviour
     float bonusGravityMult = 2.5f;
     float airDrag = 0.95f;
     Vector3 bonusGravity;
-    float distToGround = 1f;
+    public float distToGround = 2f;
     public bool canDoubleJump;
 
 
@@ -29,7 +29,8 @@ public class FixedPlayerMovementDud : MonoBehaviour
     public Vector3 moveVelocity;
 
     //Used to scale Movement dynamics to avatar's size
-    public float scaleBy = 13f;
+    public float scaleBy = 1f;
+    float specialScale = 1.6f;
 
     //Used for turning and other such drab.
     Quaternion dirQuaternion;
@@ -85,16 +86,62 @@ public class FixedPlayerMovementDud : MonoBehaviour
             BooksHandler();
             CoffeeHandler();
             DizzyHandler();
+            AnimsHandler("Jump",dirVector, Input.GetButton("Fire3"));
             Vector3.Normalize(dirVector);
             Point(dirVector);
             Move(dirVector, Input.GetButton("Fire3"));
             jump("Jump", Input.GetButton("Fire3"));
+            testScript(); //for testing only
+        }
+    }
+
+    void testScript()
+    {
+        groundbound = IsGrounded();
+    }
+
+    void AnimsHandler(string jump,Vector3 dirVector, bool running)
+    {
+        if(IsGrounded()) {
+            if (anim.GetBool("Jumping")) anim.SetBool("Jumping", false);
+            if (anim.GetBool("DoubleJumping")) anim.SetBool("DoubleJumping", false);
+            if (Input.GetButtonDown(jump)) {
+                if (!anim.GetBool("Jumping")) anim.SetBool("Jumping", true);
+                if (anim.GetBool("Running")) anim.SetBool("Running", false);
+                if (anim.GetBool("Walking")) anim.SetBool("Walking", false);
+            } else {
+                if(dirVector.magnitude > 0f) {
+                    if(running) {
+                        if (!anim.GetBool("Running")) anim.SetBool("Running",true);
+                        if (anim.GetBool("Walking")) anim.SetBool("Walking", false);
+                    } else {
+                        if (anim.GetBool("Running")) anim.SetBool("Running", false);
+                        if (!anim.GetBool("Walking")) anim.SetBool("Walking", true);
+                    }
+                } else {
+                    if (anim.GetBool("Running")) anim.SetBool("Running", false);
+                    if (anim.GetBool("Walking")) anim.SetBool("Walking", false);
+                }
+            }
+        } else {
+            if (anim.GetBool("Running")) anim.SetBool("Running", false);
+            if (anim.GetBool("Walking")) anim.SetBool("Walking", false);
+            if (canDoubleJump){
+                if (Input.GetButtonDown(jump))
+                {
+                    if (anim.GetBool("Jumping")) anim.SetBool("Jumping", false);
+                    if (!anim.GetBool("DoubleJumping")) anim.SetBool("DoubleJumping", true);
+                } else {
+                    if (!anim.GetBool("Jumping")) anim.SetBool("Jumping", true);
+                    if (anim.GetBool("DoubleJumping")) anim.SetBool("DoubleJumping", false);
+                }
+            }
         }
     }
 
     void BooksHandler()
     {
-        if(booksNum > 0)
+        if (booksNum > 0)
         {
             //change vel per book
             bookWt = 1f - ((float)booksNum * .2f);
@@ -103,7 +150,7 @@ public class FixedPlayerMovementDud : MonoBehaviour
 
     void CoffeeHandler()
     {
-        if(hasCoffee)
+        if (hasCoffee)
         {
             //make "hyper" for seconds
             caffiene = 2f;
@@ -141,10 +188,11 @@ public class FixedPlayerMovementDud : MonoBehaviour
     //Moves the player
     void Move(Vector3 dirVector, bool running)
     {
-        if(caffiene > 1f)
+        if (caffiene > 1f)
         {
             rigidbody.position += moveVelocity * caffiene;
-        } else
+        }
+        else
         {
             rigidbody.position += moveVelocity * bookWt;
         }
@@ -154,25 +202,24 @@ public class FixedPlayerMovementDud : MonoBehaviour
             if (running)
             {
 
-                xVel += dirVector.x * scaleBy * runAccel * TimeKeeper.GetDeltaTime();
-                zVel += dirVector.z * scaleBy * runAccel * TimeKeeper.GetDeltaTime();
+                xVel += dirVector.x * scaleBy * specialScale * runAccel * TimeKeeper.GetDeltaTime();
+                zVel += dirVector.z * scaleBy * specialScale * runAccel * TimeKeeper.GetDeltaTime();
                 moveVelocity.Set(xVel, 0f, zVel);
             }
             else
             {
-                moveVelocity = dirVector * scaleBy * walkSpeed * TimeKeeper.GetDeltaTime();
+                moveVelocity = dirVector * scaleBy * specialScale * walkSpeed * TimeKeeper.GetDeltaTime();
             }
-            if (moveVelocity.magnitude < scaleBy * 2f) maxAirVel = scaleBy * 2f;
+            if (moveVelocity.magnitude < scaleBy * specialScale * 2f) maxAirVel = scaleBy * specialScale * 2f;
             else
             {
-                anim.SetTrigger("IsWalking");
                 maxAirVel = moveVelocity.magnitude;
             }
 
         }
         else
         {
-            moveVelocity += dirVector * scaleBy * airAccel * TimeKeeper.GetDeltaTime();
+            moveVelocity += dirVector * scaleBy * specialScale * airAccel * TimeKeeper.GetDeltaTime();
             moveVelocity *= airDrag;
             moveVelocity = Vector3.ClampMagnitude(moveVelocity, maxAirVel);
         }
@@ -182,7 +229,6 @@ public class FixedPlayerMovementDud : MonoBehaviour
             if (xVel < 0.025f && xVel > -0.025f) xVel = 0f;
             else
             {
-                anim.SetTrigger("IsRunning");
                 xVel *= friction;
             }
         }
@@ -191,7 +237,6 @@ public class FixedPlayerMovementDud : MonoBehaviour
             if (zVel < 0.025f && zVel > -0.025f) zVel = 0f;
             else
             {
-                anim.SetTrigger("IsRunning");
                 zVel *= friction;
             }
         }
@@ -204,7 +249,7 @@ public class FixedPlayerMovementDud : MonoBehaviour
         {
             if (IsGrounded())
             {
-                transform.LookAt(transform.position + dirVector);
+                transform.LookAt(transform.position + Quaternion.Euler(0, -90, 0) * dirVector);
             }
         }
     }
@@ -216,9 +261,8 @@ public class FixedPlayerMovementDud : MonoBehaviour
         {
             if (Input.GetButtonDown(input))
             {
-                if (running) rigidbody.velocity = new Vector3(rigidbody.velocity.x, scaleBy * runJumpVel, rigidbody.velocity.z);
-                else rigidbody.velocity = new Vector3(rigidbody.velocity.x, scaleBy * walkJumpVel, rigidbody.velocity.z);
-                anim.SetTrigger("IsJumping");
+                if (running) rigidbody.velocity = new Vector3(rigidbody.velocity.x, scaleBy * specialScale * runJumpVel, rigidbody.velocity.z);
+                else rigidbody.velocity = new Vector3(rigidbody.velocity.x, scaleBy * specialScale * walkJumpVel, rigidbody.velocity.z);
                 jumpSFX1.Play();
             }
             else rigidbody.velocity.Set(rigidbody.velocity.x, 0f, rigidbody.velocity.y);
@@ -226,29 +270,31 @@ public class FixedPlayerMovementDud : MonoBehaviour
         }
         else
         {
-            if(canDoubleJump && Input.GetButtonDown(input)) {
-                //anim.SetTrigger("IsDoubleJumping");
-                if (running) rigidbody.velocity = new Vector3(rigidbody.velocity.x, 1.25f * scaleBy * runJumpVel, rigidbody.velocity.z);
-                else rigidbody.velocity = new Vector3(rigidbody.velocity.x, 1.25f * scaleBy * walkJumpVel, rigidbody.velocity.z);
+            if (canDoubleJump && Input.GetButtonDown(input))
+            {
+                if (running) rigidbody.velocity = new Vector3(rigidbody.velocity.x, 1.25f * scaleBy * specialScale * runJumpVel, rigidbody.velocity.z);
+                else rigidbody.velocity = new Vector3(rigidbody.velocity.x, 1.25f * scaleBy * specialScale * walkJumpVel, rigidbody.velocity.z);
                 canDoubleJump = false;
                 jumpSFX2.Play();
             }
             if (rigidbody.velocity.y < 0)
             {
-                rigidbody.velocity += Vector3.up * scaleBy * Physics.gravity.y * (fallMultiplier - 1) * TimeKeeper.GetDeltaTime();
+                rigidbody.velocity += Vector3.up * scaleBy * specialScale * Physics.gravity.y * (fallMultiplier - 1) * TimeKeeper.GetDeltaTime();
             }
             else if (rigidbody.velocity.y > 0 && !Input.GetButton(input))
             {
-                rigidbody.velocity += Vector3.up * scaleBy * Physics.gravity.y * (lowJumpMultiplier - 1) * TimeKeeper.GetDeltaTime();
+                rigidbody.velocity += Vector3.up * scaleBy * specialScale * Physics.gravity.y * (lowJumpMultiplier - 1) * TimeKeeper.GetDeltaTime();
             }
-            rigidbody.velocity += Vector3.up * scaleBy * Physics.gravity.y * bonusGravityMult * TimeKeeper.GetDeltaTime();
+            rigidbody.velocity += Vector3.up * scaleBy * specialScale * Physics.gravity.y * bonusGravityMult * TimeKeeper.GetDeltaTime();
         }
     }
 
 
     bool IsGrounded()
     {
-        return Physics.Raycast(transform.position, -Vector3.up, (distToGround * scaleBy) + 0.1f );
+        RaycastHitRenderer hitInfo;
+        Ray downRay = new Ray(transform.position, -Vector3.up);
+        return SuperRaycast.Raycast(downRay, out hitInfo, distToGround + 0.1f);
     }
 
 
@@ -267,9 +313,10 @@ public class FixedPlayerMovementDud : MonoBehaviour
 
         rigidbody.constraints = RigidbodyConstraints.None;
 
-        rigidbody.velocity = new Vector3(scaleBy * runJumpVel, 2f * scaleBy * runJumpVel, 0f);
+        rigidbody.velocity = new Vector3(scaleBy * specialScale * runJumpVel, 2f * scaleBy * specialScale * runJumpVel, 0f);
         rigidbody.angularVelocity = new Vector3(0f, 0f, -135f);
 
         Physics.gravity = new Vector3(4f, -4f, 0f);
     }
 }
+
