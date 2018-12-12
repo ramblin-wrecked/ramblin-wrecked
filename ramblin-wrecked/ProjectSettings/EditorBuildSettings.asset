@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/New Basic Level.unity
     guid: d01702518da7ffa4dae3c0f61572f4a7
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HowTo.unity
     guid: 41403bbc228234044b246ea41375affc
   - enabled: 1
