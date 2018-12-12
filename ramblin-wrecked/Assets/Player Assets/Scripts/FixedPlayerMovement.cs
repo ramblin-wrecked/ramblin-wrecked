@@ -29,7 +29,7 @@ public class FixedPlayerMovement : MonoBehaviour
     public Vector3 moveVelocity;
 
     //Used to scale Movement dynamics to avatar's size
-    public float scaleBy = 1f;
+    public float scaleBy = 13f;
 
     //Used for turning and other such drab.
     Quaternion dirQuaternion;

@@ -85,6 +85,7 @@ public class SkinnedPlayerMovement : MonoBehaviour
             BooksHandler();
             CoffeeHandler();
             DizzyHandler();
+            AnimsHandler("Jump",dirVector, Input.GetButton("Fire3"));
             Vector3.Normalize(dirVector);
             Point(dirVector);
             Move(dirVector, Input.GetButton("Fire3"));
@@ -96,6 +97,45 @@ public class SkinnedPlayerMovement : MonoBehaviour
     void testScript()
     {
         groundbound = IsGrounded();
+    }
+
+    void AnimsHandler(string jump,Vector3 dirVector, bool running)
+    {
+        if(IsGrounded()) {
+            if (anim.GetBool("Jumping")) anim.SetBool("Jumping", false);
+            if (anim.GetBool("DoubleJumping")) anim.SetBool("DoubleJumping", false);
+            if (Input.GetButtonDown(jump)) {
+                if (!anim.GetBool("Jumping")) anim.SetBool("Jumping", true);
+                if (anim.GetBool("Running")) anim.SetBool("Running", false);
+                if (anim.GetBool("Walking")) anim.SetBool("Walking", false);
+            } else {
+                if(dirVector.magnitude > 0f) {
+                    if(running) {
+                        if (!anim.GetBool("Running")) anim.SetBool("Running",true);
+                        if (anim.GetBool("Walking")) anim.SetBool("Walking", false);
+                    } else {
+                        if (anim.GetBool("Running")) anim.SetBool("Running", false);
+                        if (!anim.GetBool("Walking")) anim.SetBool("Walking", true);
+                    }
+                } else {
+                    if (anim.GetBool("Running")) anim.SetBool("Running", false);
+                    if (anim.GetBool("Walking")) anim.SetBool("Walking", false);
+                }
+            }
+        } else {
+            if (anim.GetBool("Running")) anim.SetBool("Running", false);
+            if (anim.GetBool("Walking")) anim.SetBool("Walking", false);
+            if (canDoubleJump){
+                if (Input.GetButtonDown(jump))
+                {
+                    if (anim.GetBool("Jumping")) anim.SetBool("Jumping", false);
+                    if (!anim.GetBool("DoubleJumping")) anim.SetBool("DoubleJumping", true);
+                } else {
+                    if (!anim.GetBool("Jumping")) anim.SetBool("Jumping", true);
+                    if (anim.GetBool("DoubleJumping")) anim.SetBool("DoubleJumping", false);
+                }
+            }
+        }
     }
 
     void BooksHandler()
@@ -172,7 +212,6 @@ public class SkinnedPlayerMovement : MonoBehaviour
             if (moveVelocity.magnitude < scaleBy * 2f) maxAirVel = scaleBy * 2f;
             else
             {
-                anim.SetTrigger("IsWalking");
                 maxAirVel = moveVelocity.magnitude;
             }
 
@@ -189,7 +228,6 @@ public class SkinnedPlayerMovement : MonoBehaviour
             if (xVel < 0.025f && xVel > -0.025f) xVel = 0f;
             else
             {
-                anim.SetTrigger("IsRunning");
                 xVel *= friction;
             }
         }
@@ -198,7 +236,6 @@ public class SkinnedPlayerMovement : MonoBehaviour
             if (zVel < 0.025f && zVel > -0.025f) zVel = 0f;
             else
             {
-                anim.SetTrigger("IsRunning");
                 zVel *= friction;
             }
         }
@@ -225,7 +262,6 @@ public class SkinnedPlayerMovement : MonoBehaviour
             {
                 if (running) rigidbody.velocity = new Vector3(rigidbody.velocity.x, scaleBy * runJumpVel, rigidbody.velocity.z);
                 else rigidbody.velocity = new Vector3(rigidbody.velocity.x, scaleBy * walkJumpVel, rigidbody.velocity.z);
-                anim.SetTrigger("IsJumping");
                 jumpSFX1.Play();
             }
             else rigidbody.velocity.Set(rigidbody.velocity.x, 0f, rigidbody.velocity.y);
@@ -235,7 +271,6 @@ public class SkinnedPlayerMovement : MonoBehaviour
         {
             if (canDoubleJump && Input.GetButtonDown(input))
             {
-                //anim.SetTrigger("IsDoubleJumping");
                 if (running) rigidbody.velocity = new Vector3(rigidbody.velocity.x, 1.25f * scaleBy * runJumpVel, rigidbody.velocity.z);
                 else rigidbody.velocity = new Vector3(rigidbody.velocity.x, 1.25f * scaleBy * walkJumpVel, rigidbody.velocity.z);
                 canDoubleJump = false;
