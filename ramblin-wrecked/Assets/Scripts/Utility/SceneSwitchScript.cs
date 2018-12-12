@@ -74,11 +74,11 @@ public class SceneSwitchScript : MonoBehaviour {
     {
         switch (level)
         {
-            case 0:
-                SwitchToLevel1();
-                break;
             case 1:
                 SwitchToLevel2();
+                break;
+            default:
+                SwitchToLevel1();
                 break;
         }
     }

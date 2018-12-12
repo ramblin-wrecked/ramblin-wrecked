@@ -73,6 +73,15 @@ public class FixedPlayerMovement : MonoBehaviour
         Physics.gravity = new Vector3(0f, -9.81f, 0f);
     }
 
+    private void FixedUpdate()
+    {
+        if (!TimeKeeper.isPaused)
+        {
+            curDizzyDuration--;
+            curHyperDuration--;
+        }
+    }
+
     void Update()
     {
         if (!TimeKeeper.isPaused)
@@ -101,25 +110,54 @@ public class FixedPlayerMovement : MonoBehaviour
 
     void CoffeeHandler()
     {
-        if(hasCoffee)
+        if (hasCoffee)
+        {
+            caffiene = 2f;
+            curHyperDuration = maxHyperDuration;
+            hasCoffee = false;
+        }
+
+        if (curHyperDuration <= 0)
+        {
+            caffiene = 1f;
+        }
+
+        /*if(hasCoffee)
         {
             //make "hyper" for seconds
             caffiene = 2f;
-            curHyperDuration -= 1;
+
             if (curHyperDuration <= 0)
             {
                 caffiene = 1f;
                 curHyperDuration = maxHyperDuration;
                 hasCoffee = false;
             }
-        } 
+        } */
     }
 
     void DizzyHandler()
     {
         if (isDizzy)
         {
+            curDizzyDuration = maxDizzyDuration;
+            isDizzy = false;
+        }
+
+        if (curDizzyDuration > 0)
+        {
             dirVector.Set(-1f * Input.GetAxisRaw("Horizontal"), 0f, -1f * Input.GetAxisRaw("Vertical"));
+            dizzySFX.UnPause();
+        }
+        else
+        {
+            dirVector.Set(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
+            dizzySFX.Pause();
+        }
+
+        /*
+        if (isDizzy)
+        {
             curDizzyDuration -= 1;
             if (curDizzyDuration <= 0)
             {
@@ -127,14 +165,14 @@ public class FixedPlayerMovement : MonoBehaviour
                 isDizzy = false;
             }
 
+            dirVector.Set(-1f * Input.GetAxisRaw("Horizontal"), 0f, -1f * Input.GetAxisRaw("Vertical"));
             dizzySFX.UnPause();
         }
         else
         {
             dirVector.Set(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
-
             dizzySFX.Pause();
-        }
+        }*/
     }
 
     //Moves the player

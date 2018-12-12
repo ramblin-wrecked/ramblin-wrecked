@@ -42,6 +42,8 @@ GameObject:
   - component: {fileID: 95661097348525978}
   - component: {fileID: 114785592471053186}
   - component: {fileID: 114292594645790470}
+  - component: {fileID: 81912103205215330}
+  - component: {fileID: 114313248030050810}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -456,6 +458,13 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6, y: 3, z: 1.6}
   m_Center: {x: -0, y: 0.5, z: 0}
+--- !u!81 &81912103205215330
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1095781193608598}
+  m_Enabled: 1
 --- !u!82 &82499210355544824
 AudioSource:
   m_ObjectHideFlags: 1
@@ -790,8 +799,10 @@ MonoBehaviour:
   curDizzyDuration: 0
   booksNum: 0
   hasCoffee: 0
+  caffiene: 1
+  bookWt: 1
   maxHyperDuration: 400
-  curHyperDuration: 400
+  curHyperDuration: 0
   jumpSFX1: {fileID: 82499210355544824}
   jumpSFX2: {fileID: 82643962824570278}
   dizzySFX: {fileID: 82546452093814840}
@@ -819,6 +830,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8139a3dfd0069b549bcae093edffead5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114313248030050810
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1095781193608598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4f5e181caf0fba4e985b6312312b0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitBook: 0
 --- !u!114 &114785592471053186
 MonoBehaviour:
   m_ObjectHideFlags: 1

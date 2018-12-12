@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider))]
 public class BookHit : MonoBehaviour {
 
     void OnTriggerEnter(Collider c)
@@ -12,8 +13,26 @@ public class BookHit : MonoBehaviour {
             if (bc != null)
             {
                 bc.booksNum += 1;
-                this.gameObject.SetActive(false);
+
+                AudioSource sfx = GetComponent<AudioSource>();
+                if (sfx != null)
+                    sfx.Play();
+
+                GetComponent<BoxCollider>().enabled = false;
+                StartCoroutine("DelayAfterSoundEffect");
             }
         }
+    }
+
+    IEnumerator DelayAfterSoundEffect()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+        AfterSoundEffect();
+        yield return null;
+    }
+
+    void AfterSoundEffect()
+    {
+        gameObject.SetActive(false);
     }
 }
