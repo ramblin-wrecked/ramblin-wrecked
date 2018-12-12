@@ -23,7 +23,7 @@ public class stackBooks : MonoBehaviour {
         {
             for(int i = 0; i < bookAm; i++)
             {
-                books[i]
+                //books[i]
             }
         }
     }

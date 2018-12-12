@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]
-public class FixedPlayerMovement : MonoBehaviour
+public class SkinnedPlayerMovement : MonoBehaviour
 {
 
     //jumping Variables
@@ -14,7 +14,7 @@ public class FixedPlayerMovement : MonoBehaviour
     float bonusGravityMult = 2.5f;
     float airDrag = 0.95f;
     Vector3 bonusGravity;
-    float distToGround = 1f;
+    public float distToGround = 2f;
     public bool canDoubleJump;
 
 
@@ -89,12 +89,21 @@ public class FixedPlayerMovement : MonoBehaviour
             Point(dirVector);
             Move(dirVector, Input.GetButton("Fire3"));
             jump("Jump", Input.GetButton("Fire3"));
+            testScript(); //for testing only
         }
+    }
+
+    void testScript()
+    {
+        groundbound = IsGrounded();
+        RaycastHitRenderer hitInfo;
+        Ray downRay = new Ray(transform.position, -Vector3.up);
+        groundbound = SuperRaycast.Raycast(downRay, out hitInfo, distToGround + 0.1f);
     }
 
     void BooksHandler()
     {
-        if(booksNum > 0)
+        if (booksNum > 0)
         {
             //change vel per book
             bookWt = 1f - ((float)booksNum * .2f);
@@ -103,7 +112,7 @@ public class FixedPlayerMovement : MonoBehaviour
 
     void CoffeeHandler()
     {
-        if(hasCoffee)
+        if (hasCoffee)
         {
             //make "hyper" for seconds
             caffiene = 2f;
@@ -141,10 +150,11 @@ public class FixedPlayerMovement : MonoBehaviour
     //Moves the player
     void Move(Vector3 dirVector, bool running)
     {
-        if(caffiene > 1f)
+        if (caffiene > 1f)
         {
             rigidbody.position += moveVelocity * caffiene;
-        } else
+        }
+        else
         {
             rigidbody.position += moveVelocity * bookWt;
         }
@@ -204,7 +214,7 @@ public class FixedPlayerMovement : MonoBehaviour
         {
             if (IsGrounded())
             {
-                transform.LookAt(transform.position + dirVector);
+                transform.LookAt(transform.position + Quaternion.Euler(0, -90, 0) * dirVector);
             }
         }
     }
@@ -226,7 +236,8 @@ public class FixedPlayerMovement : MonoBehaviour
         }
         else
         {
-            if(canDoubleJump && Input.GetButtonDown(input)) {
+            if (canDoubleJump && Input.GetButtonDown(input))
+            {
                 //anim.SetTrigger("IsDoubleJumping");
                 if (running) rigidbody.velocity = new Vector3(rigidbody.velocity.x, 1.25f * scaleBy * runJumpVel, rigidbody.velocity.z);
                 else rigidbody.velocity = new Vector3(rigidbody.velocity.x, 1.25f * scaleBy * walkJumpVel, rigidbody.velocity.z);
@@ -248,7 +259,7 @@ public class FixedPlayerMovement : MonoBehaviour
 
     bool IsGrounded()
     {
-        return Physics.Raycast(transform.position, -Vector3.up, (distToGround * scaleBy) + 0.1f );
+        return true;
     }
 
 
@@ -273,3 +284,4 @@ public class FixedPlayerMovement : MonoBehaviour
         Physics.gravity = new Vector3(4f, -4f, 0f);
     }
 }
+
