@@ -30,6 +30,7 @@ public class SkinnedPlayerMovement : MonoBehaviour
 
     //Used to scale Movement dynamics to avatar's size
     public float scaleBy = 1f;
+    float specialScale = 1.6f;
 
     //Used for turning and other such drab.
     Quaternion dirQuaternion;
@@ -201,15 +202,15 @@ public class SkinnedPlayerMovement : MonoBehaviour
             if (running)
             {
 
-                xVel += dirVector.x * scaleBy * runAccel * TimeKeeper.GetDeltaTime();
-                zVel += dirVector.z * scaleBy * runAccel * TimeKeeper.GetDeltaTime();
+                xVel += dirVector.x * scaleBy * specialScale * runAccel * TimeKeeper.GetDeltaTime();
+                zVel += dirVector.z * scaleBy * specialScale * runAccel * TimeKeeper.GetDeltaTime();
                 moveVelocity.Set(xVel, 0f, zVel);
             }
             else
             {
-                moveVelocity = dirVector * scaleBy * walkSpeed * TimeKeeper.GetDeltaTime();
+                moveVelocity = dirVector * scaleBy * specialScale * walkSpeed * TimeKeeper.GetDeltaTime();
             }
-            if (moveVelocity.magnitude < scaleBy * 2f) maxAirVel = scaleBy * 2f;
+            if (moveVelocity.magnitude < scaleBy * specialScale * 2f) maxAirVel = scaleBy * specialScale * 2f;
             else
             {
                 maxAirVel = moveVelocity.magnitude;
@@ -218,7 +219,7 @@ public class SkinnedPlayerMovement : MonoBehaviour
         }
         else
         {
-            moveVelocity += dirVector * scaleBy * airAccel * TimeKeeper.GetDeltaTime();
+            moveVelocity += dirVector * scaleBy * specialScale * airAccel * TimeKeeper.GetDeltaTime();
             moveVelocity *= airDrag;
             moveVelocity = Vector3.ClampMagnitude(moveVelocity, maxAirVel);
         }
@@ -260,8 +261,8 @@ public class SkinnedPlayerMovement : MonoBehaviour
         {
             if (Input.GetButtonDown(input))
             {
-                if (running) rigidbody.velocity = new Vector3(rigidbody.velocity.x, scaleBy * runJumpVel, rigidbody.velocity.z);
-                else rigidbody.velocity = new Vector3(rigidbody.velocity.x, scaleBy * walkJumpVel, rigidbody.velocity.z);
+                if (running) rigidbody.velocity = new Vector3(rigidbody.velocity.x, scaleBy * specialScale * runJumpVel, rigidbody.velocity.z);
+                else rigidbody.velocity = new Vector3(rigidbody.velocity.x, scaleBy * specialScale * walkJumpVel, rigidbody.velocity.z);
                 jumpSFX1.Play();
             }
             else rigidbody.velocity.Set(rigidbody.velocity.x, 0f, rigidbody.velocity.y);
@@ -271,20 +272,20 @@ public class SkinnedPlayerMovement : MonoBehaviour
         {
             if (canDoubleJump && Input.GetButtonDown(input))
             {
-                if (running) rigidbody.velocity = new Vector3(rigidbody.velocity.x, 1.25f * scaleBy * runJumpVel, rigidbody.velocity.z);
-                else rigidbody.velocity = new Vector3(rigidbody.velocity.x, 1.25f * scaleBy * walkJumpVel, rigidbody.velocity.z);
+                if (running) rigidbody.velocity = new Vector3(rigidbody.velocity.x, 1.25f * scaleBy * specialScale * runJumpVel, rigidbody.velocity.z);
+                else rigidbody.velocity = new Vector3(rigidbody.velocity.x, 1.25f * scaleBy * specialScale * walkJumpVel, rigidbody.velocity.z);
                 canDoubleJump = false;
                 jumpSFX2.Play();
             }
             if (rigidbody.velocity.y < 0)
             {
-                rigidbody.velocity += Vector3.up * scaleBy * Physics.gravity.y * (fallMultiplier - 1) * TimeKeeper.GetDeltaTime();
+                rigidbody.velocity += Vector3.up * scaleBy * specialScale * Physics.gravity.y * (fallMultiplier - 1) * TimeKeeper.GetDeltaTime();
             }
             else if (rigidbody.velocity.y > 0 && !Input.GetButton(input))
             {
-                rigidbody.velocity += Vector3.up * scaleBy * Physics.gravity.y * (lowJumpMultiplier - 1) * TimeKeeper.GetDeltaTime();
+                rigidbody.velocity += Vector3.up * scaleBy * specialScale * Physics.gravity.y * (lowJumpMultiplier - 1) * TimeKeeper.GetDeltaTime();
             }
-            rigidbody.velocity += Vector3.up * scaleBy * Physics.gravity.y * bonusGravityMult * TimeKeeper.GetDeltaTime();
+            rigidbody.velocity += Vector3.up * scaleBy * specialScale * Physics.gravity.y * bonusGravityMult * TimeKeeper.GetDeltaTime();
         }
     }
 
@@ -312,7 +313,7 @@ public class SkinnedPlayerMovement : MonoBehaviour
 
         rigidbody.constraints = RigidbodyConstraints.None;
 
-        rigidbody.velocity = new Vector3(scaleBy * runJumpVel, 2f * scaleBy * runJumpVel, 0f);
+        rigidbody.velocity = new Vector3(scaleBy * specialScale * runJumpVel, 2f * scaleBy * specialScale * runJumpVel, 0f);
         rigidbody.angularVelocity = new Vector3(0f, 0f, -135f);
 
         Physics.gravity = new Vector3(4f, -4f, 0f);
