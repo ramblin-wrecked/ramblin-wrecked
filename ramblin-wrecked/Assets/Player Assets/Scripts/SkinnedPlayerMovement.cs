@@ -96,9 +96,6 @@ public class SkinnedPlayerMovement : MonoBehaviour
     void testScript()
     {
         groundbound = IsGrounded();
-        RaycastHitRenderer hitInfo;
-        Ray downRay = new Ray(transform.position, -Vector3.up);
-        groundbound = SuperRaycast.Raycast(downRay, out hitInfo, distToGround + 0.1f);
     }
 
     void BooksHandler()
@@ -259,7 +256,9 @@ public class SkinnedPlayerMovement : MonoBehaviour
 
     bool IsGrounded()
     {
-        return true;
+        RaycastHitRenderer hitInfo;
+        Ray downRay = new Ray(transform.position, -Vector3.up);
+        return SuperRaycast.Raycast(downRay, out hitInfo, distToGround + 0.1f);
     }
 
 

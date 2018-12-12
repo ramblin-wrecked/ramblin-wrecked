@@ -269,7 +269,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!1001 &183464241
+--- !u!1001 &791060608
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -308,17 +308,17 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114592035220283234, guid: e46b0a7954af50e478e243b9cbc0f6ff,
+    - target: {fileID: 114158508077033378, guid: e46b0a7954af50e478e243b9cbc0f6ff,
         type: 2}
       propertyPath: jumpSFX1
       value: 
       objectReference: {fileID: 1723670979}
-    - target: {fileID: 114592035220283234, guid: e46b0a7954af50e478e243b9cbc0f6ff,
+    - target: {fileID: 114158508077033378, guid: e46b0a7954af50e478e243b9cbc0f6ff,
         type: 2}
       propertyPath: jumpSFX2
       value: 
       objectReference: {fileID: 1321385693}
-    - target: {fileID: 114592035220283234, guid: e46b0a7954af50e478e243b9cbc0f6ff,
+    - target: {fileID: 114158508077033378, guid: e46b0a7954af50e478e243b9cbc0f6ff,
         type: 2}
       propertyPath: dizzySFX
       value: 
@@ -1131,4 +1131,4 @@ MeshFilter:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1960542144864936, guid: e46b0a7954af50e478e243b9cbc0f6ff,
     type: 2}
-  m_PrefabInternal: {fileID: 183464241}
+  m_PrefabInternal: {fileID: 791060608}
