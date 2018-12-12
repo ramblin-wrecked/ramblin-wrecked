@@ -3536,7 +3536,7 @@ Prefab:
     - target: {fileID: 114067229321312522, guid: 8f10ccf9825963146b1935eea8f2ca22,
         type: 2}
       propertyPath: speedX
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 199738660643290264, guid: 8f10ccf9825963146b1935eea8f2ca22,
         type: 2}

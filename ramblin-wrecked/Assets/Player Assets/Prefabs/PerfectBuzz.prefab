@@ -344,6 +344,8 @@ GameObject:
   - component: {fileID: 114109172171762608}
   - component: {fileID: 114935615484065764}
   - component: {fileID: 114514565421867408}
+  - component: {fileID: 81070298314199566}
+  - component: {fileID: 114436492146158200}
   m_Layer: 0
   m_Name: PerfectBuzz
   m_TagString: Player
@@ -727,6 +729,13 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.6, y: 4, z: 2.5}
   m_Center: {x: 0, y: 2, z: 0}
+--- !u!81 &81070298314199566
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1960542144864936}
+  m_Enabled: 1
 --- !u!95 &95666930577838072
 Animator:
   serializedVersion: 3
@@ -780,10 +789,22 @@ MonoBehaviour:
   caffiene: 1
   bookWt: 1
   maxHyperDuration: 400
-  curHyperDuration: 400
+  curHyperDuration: 0
   jumpSFX1: {fileID: 0}
   jumpSFX2: {fileID: 0}
   dizzySFX: {fileID: 0}
+--- !u!114 &114436492146158200
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1960542144864936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4f5e181caf0fba4e985b6312312b0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitBook: 0
 --- !u!114 &114514565421867408
 MonoBehaviour:
   m_ObjectHideFlags: 1
