@@ -14,7 +14,7 @@ public class FixedPlayerMovement : MonoBehaviour
     float bonusGravityMult = 2.5f;
     float airDrag = 0.95f;
     Vector3 bonusGravity;
-    float distToGround = 1;
+    public float distToGround = 1f;
     public bool canDoubleJump;
 
 
@@ -40,6 +40,8 @@ public class FixedPlayerMovement : MonoBehaviour
     Animator anim;
     bool isRunning;
 
+    public bool groundbound = false;
+
     public bool isDizzy = false;
     public int maxDizzyDuration = 400;
     public int curDizzyDuration = 0;
@@ -59,7 +61,7 @@ public class FixedPlayerMovement : MonoBehaviour
     bool restrained = true;
     Vector3 angVelocity;
 
-    
+
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -71,15 +73,6 @@ public class FixedPlayerMovement : MonoBehaviour
         dizzySFX.Pause();
 
         Physics.gravity = new Vector3(0f, -9.81f, 0f);
-    }
-
-    private void FixedUpdate()
-    {
-        if (!TimeKeeper.isPaused)
-        {
-            curDizzyDuration--;
-            curHyperDuration--;
-        }
     }
 
     void Update()
@@ -96,6 +89,17 @@ public class FixedPlayerMovement : MonoBehaviour
             Point(dirVector);
             Move(dirVector, Input.GetButton("Fire3"));
             jump("Jump", Input.GetButton("Fire3"));
+            testScript(); //for testing only
+        }
+    }
+
+    void testScript()
+    {
+        groundbound = IsGrounded();
+        RaycastHit hit;
+        if (Physics.Raycast(charCollider.transform.position, -Vector3.up, out hit))
+        {
+            //distToGround = hit.distance;
         }
     }
 
@@ -110,54 +114,25 @@ public class FixedPlayerMovement : MonoBehaviour
 
     void CoffeeHandler()
     {
-        if (hasCoffee)
-        {
-            caffiene = 2f;
-            curHyperDuration = maxHyperDuration;
-            hasCoffee = false;
-        }
-
-        if (curHyperDuration <= 0)
-        {
-            caffiene = 1f;
-        }
-
-        /*if(hasCoffee)
+        if(hasCoffee)
         {
             //make "hyper" for seconds
             caffiene = 2f;
-
+            curHyperDuration -= 1;
             if (curHyperDuration <= 0)
             {
                 caffiene = 1f;
                 curHyperDuration = maxHyperDuration;
                 hasCoffee = false;
             }
-        } */
+        }
     }
 
     void DizzyHandler()
     {
         if (isDizzy)
         {
-            curDizzyDuration = maxDizzyDuration;
-            isDizzy = false;
-        }
-
-        if (curDizzyDuration > 0)
-        {
             dirVector.Set(-1f * Input.GetAxisRaw("Horizontal"), 0f, -1f * Input.GetAxisRaw("Vertical"));
-            dizzySFX.UnPause();
-        }
-        else
-        {
-            dirVector.Set(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
-            dizzySFX.Pause();
-        }
-
-        /*
-        if (isDizzy)
-        {
             curDizzyDuration -= 1;
             if (curDizzyDuration <= 0)
             {
@@ -165,14 +140,13 @@ public class FixedPlayerMovement : MonoBehaviour
                 isDizzy = false;
             }
 
-            dirVector.Set(-1f * Input.GetAxisRaw("Horizontal"), 0f, -1f * Input.GetAxisRaw("Vertical"));
             dizzySFX.UnPause();
         }
         else
         {
             dirVector.Set(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
             dizzySFX.Pause();
-        }*/
+        }
     }
 
     //Moves the player
@@ -185,7 +159,7 @@ public class FixedPlayerMovement : MonoBehaviour
         {
             rigidbody.position += moveVelocity * bookWt;
         }
-        
+
         if (IsGrounded())
         {
             if (running)
@@ -241,7 +215,7 @@ public class FixedPlayerMovement : MonoBehaviour
         {
             if (IsGrounded())
             {
-                transform.LookAt(transform.position + dirVector);
+                transform.LookAt(transform.position + Quaternion.Euler(0, -90, 0) * dirVector);
             }
         }
     }
@@ -285,8 +259,34 @@ public class FixedPlayerMovement : MonoBehaviour
 
     bool IsGrounded()
     {
-        return Physics.Raycast(transform.position, -Vector3.up, distToGround * scaleBy + 0.1f);
-        anim.SetTrigger("IsGrounded");
+        if (SuperRaycast.Raycast(new Ray(transform.position, -Vector3.up), target, out hitInfo))
+            return groundbound;
+        //return Physics.Raycast(transform.position, -Vector3.up, distToGround * scaleBy + 0.1f);
+        //anim.SetTrigger("IsGrounded");
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.contacts.Length > 0)
+        {
+            ContactPoint contact = collision.contacts[0];
+            if (Vector3.Dot(contact.normal, Vector3.up) > 0.5)
+            {
+                groundbound = true;
+            }
+        }
+    }
+
+    voidOnCollisionExit(Collision collision)
+    {
+        if (collision.contacts.Length > 0)
+        {
+            ContactPoint contact = collision.contacts[0];
+            if (Vector3.Dot(contact.normal, Vector3.up) > 0.5)
+            {
+                groundbound = false;
+            }
+        }
     }
 
 
